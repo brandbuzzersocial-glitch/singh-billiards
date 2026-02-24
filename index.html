@@ -1,0 +1,2746 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Singh Billiards — Since 1999 | Jaipur</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Bebas+Neue&family=Jost:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --green: #1a4a2e;
+            --green-mid: #2d6b45;
+            --green-light: #3d8a5c;
+            --gold: #c9a84c;
+            --gold-light: #e8c96e;
+            --cream: #f5f0e8;
+            --dark: #0d1a12;
+            --charcoal: #1c2820;
+            --white: #faf8f4;
+            --text-muted: rgba(245, 240, 232, 0.55);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--dark);
+            color: var(--cream);
+            font-family: 'Jost', sans-serif;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* CUSTOM CURSOR */
+        .cursor {
+            position: fixed;
+            width: 12px;
+            height: 12px;
+            background: var(--gold);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99999;
+            transform: translate(-50%, -50%);
+            transition: width .2s, height .2s, background .2s;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-ring {
+            position: fixed;
+            width: 36px;
+            height: 36px;
+            border: 1.5px solid var(--gold);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99998;
+            transform: translate(-50%, -50%);
+            transition: all .12s ease;
+            opacity: 0.6;
+        }
+
+        .cursor.hover {
+            width: 24px;
+            height: 24px;
+            background: var(--gold-light);
+        }
+
+        .cursor-ring.hover {
+            width: 56px;
+            height: 56px;
+            opacity: 0.3;
+        }
+
+        /* LOADER / INTRO CANVAS */
+        #intro-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9000;
+            background: var(--dark);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 1s ease, visibility 1s;
+        }
+
+        #intro-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        #intro-canvas {
+            width: 100vw;
+            height: 100vh;
+            display: block;
+        }
+
+        .intro-brand {
+            position: absolute;
+            bottom: 12%;
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 5vw, 4rem);
+            color: var(--cream);
+            letter-spacing: .3em;
+            opacity: 0;
+            animation: fadeInBrand 1s ease 2.5s forwards;
+        }
+
+        .intro-brand span {
+            color: var(--gold);
+        }
+
+        .intro-skip {
+            position: absolute;
+            bottom: 5%;
+            right: 5%;
+            font-family: 'Jost', sans-serif;
+            font-size: .8rem;
+            letter-spacing: .15em;
+            color: var(--text-muted);
+            cursor: pointer;
+            border: none;
+            background: none;
+            text-transform: uppercase;
+        }
+
+        .intro-skip:hover {
+            color: var(--gold);
+        }
+
+        @keyframes fadeInBrand {
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.2rem 4%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(to bottom, rgba(13, 26, 18, .97) 0%, transparent 100%);
+            transition: background .4s;
+        }
+
+        nav.scrolled {
+            background: rgba(13, 26, 18, .97);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--cream);
+            letter-spacing: .05em;
+            text-decoration: none;
+        }
+
+        .nav-logo span {
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-size: .82rem;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: var(--cream);
+            text-decoration: none;
+            transition: color .2s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -3px;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: width .3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* DROPDOWN */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(13, 26, 18, .97);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(201, 168, 76, .2);
+            min-width: 200px;
+            padding: .6rem 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(-50%) translateY(8px);
+            transition: all .3s ease;
+            pointer-events: none;
+            list-style: none;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+            pointer-events: all;
+        }
+
+        .dropdown-menu li a {
+            display: block;
+            padding: .6rem 1.4rem;
+            font-size: .8rem;
+            letter-spacing: .1em;
+            color: var(--cream);
+            text-decoration: none;
+            transition: background .2s, color .2s;
+        }
+
+        .dropdown-menu li a:hover {
+            background: rgba(201, 168, 76, .12);
+            color: var(--gold-light);
+        }
+
+        .dropdown-menu li a::after {
+            display: none;
+        }
+
+        .nav-cta {
+            background: var(--gold);
+            color: var(--dark) !important;
+            padding: .5rem 1.4rem;
+            border-radius: 2px;
+            font-weight: 600;
+            letter-spacing: .12em;
+            transition: background .2s, transform .2s !important;
+        }
+
+        .nav-cta:hover {
+            background: var(--gold-light) !important;
+            transform: translateY(-1px) !important;
+        }
+
+        .nav-cta::after {
+            display: none !important;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background: var(--cream);
+            transition: .3s;
+        }
+
+        /* HERO */
+        #hero {
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        #hero-video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.35;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(13, 26, 18, .92) 0%, rgba(13, 26, 18, .5) 60%, transparent 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 0 6%;
+            max-width: 900px;
+        }
+
+        .hero-eyebrow {
+            font-family: 'Jost', sans-serif;
+            font-size: .8rem;
+            letter-spacing: .3em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUp .8s ease .3s forwards;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 8vw, 7.5rem);
+            line-height: .95;
+            font-weight: 900;
+            color: var(--cream);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp .9s ease .5s forwards;
+        }
+
+        .hero-title em {
+            font-style: italic;
+            color: var(--gold);
+            display: block;
+        }
+
+        .hero-subtitle {
+            margin-top: 1.8rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            font-weight: 300;
+            line-height: 1.6;
+            color: rgba(245, 240, 232, .8);
+            max-width: 540px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUp .9s ease .7s forwards;
+        }
+
+        .hero-actions {
+            margin-top: 2.8rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUp .9s ease .9s forwards;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: .6rem;
+            background: var(--gold);
+            color: var(--dark);
+            padding: .9rem 2.2rem;
+            font-family: 'Jost', sans-serif;
+            font-size: .85rem;
+            font-weight: 600;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: background .25s, transform .25s, box-shadow .25s;
+            clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 100%, 0 100%);
+        }
+
+        .btn-primary:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(201, 168, 76, .35);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: .6rem;
+            background: transparent;
+            color: var(--cream);
+            padding: .9rem 2.2rem;
+            font-family: 'Jost', sans-serif;
+            font-size: .85rem;
+            font-weight: 500;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: 1px solid rgba(245, 240, 232, .35);
+            cursor: pointer;
+            transition: border-color .25s, color .25s, background .25s;
+            clip-path: polygon(12px 0, 100% 0, 100% 100%, 0 100%);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            background: rgba(201, 168, 76, .08);
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 3rem;
+            left: 6%;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: .72rem;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            opacity: 0;
+            animation: fadeIn 1s ease 1.5s forwards;
+        }
+
+        .hero-scroll-line {
+            width: 50px;
+            height: 1px;
+            background: var(--gold);
+            animation: scrollPulse 2s ease 1.5s infinite;
+        }
+
+        .hero-since {
+            position: absolute;
+            right: 4%;
+            bottom: 3rem;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(4rem, 10vw, 10rem);
+            color: rgba(201, 168, 76, .06);
+            line-height: 1;
+            letter-spacing: .05em;
+            user-select: none;
+        }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes scrollPulse {
+
+            0%,
+            100% {
+                transform: scaleX(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scaleX(1.5);
+                opacity: .5;
+            }
+        }
+
+        /* STATS TICKER */
+        .stats-bar {
+            background: var(--green);
+            padding: 1.2rem 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .stats-track {
+            display: flex;
+            gap: 0;
+            white-space: nowrap;
+            animation: ticker 30s linear infinite;
+            width: max-content;
+        }
+
+        .stats-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 1.2rem;
+            padding: 0 3rem;
+            font-family: 'Jost', sans-serif;
+            font-size: .8rem;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+            color: var(--cream);
+        }
+
+        .stats-item span {
+            color: var(--gold);
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .stats-dot {
+            width: 4px;
+            height: 4px;
+            background: var(--gold);
+            border-radius: 50%;
+        }
+
+        @keyframes ticker {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* SECTIONS */
+        section {
+            padding: 7rem 6%;
+        }
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: .8rem;
+            font-size: .72rem;
+            letter-spacing: .3em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1.2rem;
+        }
+
+        .section-label::before {
+            content: '';
+            width: 30px;
+            height: 1px;
+            background: var(--gold);
+        }
+
+        h2.section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.2rem, 5vw, 4.5rem);
+            font-weight: 900;
+            line-height: 1.05;
+            color: var(--cream);
+            margin-bottom: 1.5rem;
+        }
+
+        h2.section-title em {
+            font-style: italic;
+            color: var(--gold);
+        }
+
+        /* ABOUT */
+        #about {
+            background: var(--charcoal);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+            padding: 7rem 6%;
+        }
+
+        .about-text p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.25rem;
+            line-height: 1.75;
+            color: rgba(245, 240, 232, .8);
+            margin-bottom: 1.2rem;
+        }
+
+        .about-text p strong {
+            color: var(--gold);
+        }
+
+        .about-visual {
+            position: relative;
+        }
+
+        .about-frame {
+            background: var(--green);
+            padding: 3rem;
+            position: relative;
+        }
+
+        .about-frame::before {
+            content: '';
+            position: absolute;
+            top: -12px;
+            left: -12px;
+            right: 12px;
+            bottom: 12px;
+            border: 1px solid var(--gold);
+            pointer-events: none;
+        }
+
+        .founder-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-style: italic;
+            color: var(--gold);
+            margin-bottom: .5rem;
+        }
+
+        .founder-title {
+            font-size: .8rem;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .founder-quote {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-style: italic;
+            line-height: 1.6;
+            color: var(--cream);
+            border-left: 2px solid var(--gold);
+            padding-left: 1.5rem;
+        }
+
+        .table-specs {
+            margin-top: 2.5rem;
+        }
+
+        .table-specs table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table-specs th {
+            background: rgba(201, 168, 76, .12);
+            font-size: .72rem;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+            color: var(--gold);
+            padding: .7rem 1rem;
+            text-align: left;
+        }
+
+        .table-specs td {
+            padding: .6rem 1rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+            color: rgba(245, 240, 232, .85);
+            border-bottom: 1px solid rgba(255, 255, 255, .06);
+        }
+
+        .table-specs tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* PRODUCTS */
+        #products {
+            background: var(--dark);
+        }
+
+        .products-intro {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 4rem;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .product-tabs {
+            display: flex;
+            gap: .5rem;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .tab-btn {
+            padding: .5rem 1.4rem;
+            font-size: .78rem;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            background: transparent;
+            color: var(--text-muted);
+            border: 1px solid rgba(255, 255, 255, .12);
+            cursor: pointer;
+            transition: .25s;
+            font-family: 'Jost', sans-serif;
+        }
+
+        .tab-btn.active,
+        .tab-btn:hover {
+            background: var(--gold);
+            color: var(--dark);
+            border-color: var(--gold);
+        }
+
+        .product-panel {
+            display: none;
+        }
+
+        .product-panel.active {
+            display: block;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2px;
+        }
+
+        .product-card {
+            position: relative;
+            background: var(--charcoal);
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform .4s ease;
+        }
+
+        .product-card:hover {
+            transform: scale(1.02);
+            z-index: 2;
+        }
+
+        .product-card-img {
+            width: 100%;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+            display: block;
+            transition: transform .6s ease, filter .4s;
+            filter: brightness(.9) saturate(.9);
+        }
+
+        .product-card:hover .product-card-img {
+            transform: scale(1.05);
+            filter: brightness(1) saturate(1.1);
+        }
+
+        .product-card-info {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(13, 26, 18, .97) 0%, transparent 50%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1.8rem;
+            opacity: 0;
+            transition: opacity .4s;
+        }
+
+        .product-card:hover .product-card-info {
+            opacity: 1;
+        }
+
+        .product-card-label {
+            font-family: 'Jost', sans-serif;
+            font-size: .72rem;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: .4rem;
+        }
+
+        .product-card-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--cream);
+        }
+
+        .product-card-tag {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--green);
+            padding: .3rem .8rem;
+            font-size: .7rem;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .product-card-cta {
+            margin-top: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            color: var(--gold);
+            font-size: .8rem;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color .2s;
+        }
+
+        .product-card-cta:hover {
+            border-color: var(--gold);
+        }
+
+        /* SNOOKER FEATURED */
+        .product-featured {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+            align-items: stretch;
+        }
+
+        .featured-main {
+            background: var(--green);
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            min-height: 400px;
+        }
+
+        .featured-main::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(13, 26, 18, .9) 0%, transparent 60%);
+        }
+
+        .featured-main-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .featured-specs {
+            background: var(--charcoal);
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .spec-row {
+            display: flex;
+            justify-content: space-between;
+            padding: .8rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, .07);
+            font-size: .9rem;
+        }
+
+        .spec-row:last-child {
+            border-bottom: none;
+        }
+
+        .spec-key {
+            color: var(--text-muted);
+            letter-spacing: .08em;
+        }
+
+        .spec-val {
+            color: var(--cream);
+            font-weight: 500;
+        }
+
+        /* ACCESSORIES GRID */
+        .accessories-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .accessory-item {
+            background: var(--charcoal);
+            padding: 1.5rem 1rem;
+            text-align: center;
+            transition: background .3s, transform .3s;
+            cursor: pointer;
+        }
+
+        .accessory-item:hover {
+            background: var(--green);
+            transform: translateY(-4px);
+        }
+
+        .accessory-icon {
+            font-size: 2rem;
+            margin-bottom: .8rem;
+        }
+
+        .accessory-name {
+            font-size: .78rem;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        /* FOOSBALL */
+        .foosball-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .foosball-card {
+            background: var(--charcoal);
+            padding: 2rem;
+            transition: background .3s, transform .3s;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+
+        .foosball-card:hover {
+            background: rgba(45, 107, 69, .3);
+            transform: translateY(-6px);
+            border-bottom-color: var(--gold);
+        }
+
+        .foosball-model {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            color: var(--gold);
+            letter-spacing: .05em;
+        }
+
+        .foosball-size {
+            font-size: .8rem;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin: .5rem 0 1rem;
+        }
+
+        .foosball-use {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.05rem;
+            line-height: 1.5;
+            color: rgba(245, 240, 232, .75);
+        }
+
+        .foosball-badge {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: .25rem .8rem;
+            background: rgba(201, 168, 76, .1);
+            border: 1px solid rgba(201, 168, 76, .3);
+            font-size: .7rem;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        /* WHY US */
+        #why {
+            background: var(--green);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #why::before {
+            content: 'WHY US';
+            position: absolute;
+            right: -2%;
+            bottom: -10%;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(6rem, 18vw, 18rem);
+            color: rgba(0, 0, 0, .15);
+            line-height: 1;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .why-card {
+            padding: 2.5rem 2rem;
+            background: rgba(0, 0, 0, .2);
+        }
+
+        .why-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 4rem;
+            color: rgba(201, 168, 76, .3);
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .why-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--cream);
+            margin-bottom: 1rem;
+        }
+
+        .why-desc {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: rgba(245, 240, 232, .75);
+        }
+
+        /* GYM LINE TEASER */
+        #gym {
+            background: var(--charcoal);
+            padding: 7rem 6%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gym-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .gym-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: .6rem;
+            background: rgba(201, 168, 76, .12);
+            border: 1px solid var(--gold);
+            padding: .4rem 1rem;
+            font-size: .72rem;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+        }
+
+        .gym-badge-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--gold);
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: .5;
+                transform: scale(1.4);
+            }
+        }
+
+        .gym-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            color: var(--cream);
+            line-height: 1.05;
+            margin-bottom: 1.2rem;
+        }
+
+        .gym-title em {
+            color: var(--gold);
+            font-style: italic;
+        }
+
+        .gym-desc {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            line-height: 1.7;
+            color: rgba(245, 240, 232, .75);
+            margin-bottom: 2rem;
+        }
+
+        .gym-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .gym-feature {
+            display: flex;
+            align-items: center;
+            gap: .8rem;
+            font-size: .85rem;
+            letter-spacing: .05em;
+            color: var(--cream);
+        }
+
+        .gym-feature::before {
+            content: '✦';
+            color: var(--gold);
+            font-size: .6rem;
+        }
+
+        .gym-visual {
+            position: relative;
+        }
+
+        .gym-card-stack {
+            position: relative;
+            height: 500px;
+        }
+
+        .gym-card-back {
+            position: absolute;
+            top: 20px;
+            right: -20px;
+            width: 85%;
+            height: 420px;
+            background: var(--green);
+        }
+
+        .gym-card-front {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 85%;
+            height: 420px;
+            background: linear-gradient(135deg, var(--green-mid), var(--dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            border: 1px solid rgba(201, 168, 76, .2);
+        }
+
+        .gym-coming-soon {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 5rem;
+            color: var(--gold);
+            line-height: 1;
+            text-align: center;
+            letter-spacing: .05em;
+        }
+
+        .gym-coming-sub {
+            font-family: 'Jost', sans-serif;
+            font-size: .8rem;
+            letter-spacing: .3em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: .5rem;
+        }
+
+        .gym-notify {
+            margin-top: 2rem;
+            font-size: .75rem;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+            color: var(--gold);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            border-bottom: 1px solid rgba(201, 168, 76, .3);
+            padding-bottom: .2rem;
+            transition: gap .2s;
+        }
+
+        .gym-notify:hover {
+            gap: .9rem;
+        }
+
+        /* CLIENTS */
+        #clients {
+            background: var(--dark);
+        }
+
+        .clients-marquee {
+            overflow: hidden;
+            margin-top: 3rem;
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+
+        .clients-track {
+            display: flex;
+            gap: 4rem;
+            align-items: center;
+            animation: marquee 25s linear infinite;
+            width: max-content;
+        }
+
+        .clients-track:hover {
+            animation-play-state: paused;
+        }
+
+        .client-logo {
+            font-family: 'Jost', sans-serif;
+            font-weight: 600;
+            font-size: .9rem;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+            color: rgba(245, 240, 232, .35);
+            white-space: nowrap;
+            transition: color .3s;
+            cursor: default;
+        }
+
+        .client-logo:hover {
+            color: var(--gold);
+        }
+
+        .client-sep {
+            color: rgba(201, 168, 76, .3);
+            font-size: 1.5rem;
+        }
+
+        @keyframes marquee {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* CATALOG */
+        #catalog {
+            background: var(--green);
+            padding: 5rem 6%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .catalog-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            color: var(--cream);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: .8rem;
+        }
+
+        .catalog-text h2 em {
+            color: var(--gold);
+            font-style: italic;
+        }
+
+        .catalog-text p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.15rem;
+            color: rgba(245, 240, 232, .75);
+            max-width: 500px;
+        }
+
+        .catalog-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            gap: .7rem;
+            background: var(--cream);
+            color: var(--dark);
+            padding: .9rem 2rem;
+            font-family: 'Jost', sans-serif;
+            font-size: .82rem;
+            font-weight: 600;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: background .25s, transform .25s;
+        }
+
+        .btn-download:hover {
+            background: var(--gold);
+            transform: translateY(-2px);
+        }
+
+        .btn-wa {
+            display: inline-flex;
+            align-items: center;
+            gap: .7rem;
+            background: #25D366;
+            color: #fff;
+            padding: .9rem 2rem;
+            font-family: 'Jost', sans-serif;
+            font-size: .82rem;
+            font-weight: 600;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background .25s, transform .25s;
+        }
+
+        .btn-wa:hover {
+            background: #1ebe5d;
+            transform: translateY(-2px);
+        }
+
+        /* CONTACT */
+        #contact {
+            background: var(--charcoal);
+            padding: 7rem 6%;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 5rem;
+            align-items: start;
+        }
+
+        .contact-info {
+            padding: 3rem;
+            background: var(--green);
+            position: relative;
+        }
+
+        .contact-info::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            right: -8px;
+            left: 8px;
+            top: 8px;
+            border: 1px solid rgba(201, 168, 76, .25);
+            pointer-events: none;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.2rem;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, .1);
+        }
+
+        .contact-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .contact-icon {
+            width: 42px;
+            height: 42px;
+            background: rgba(201, 168, 76, .15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            border: 1px solid rgba(201, 168, 76, .3);
+        }
+
+        .contact-detail {
+            font-size: .95rem;
+            line-height: 1.6;
+            color: rgba(245, 240, 232, .8);
+        }
+
+        .contact-detail strong {
+            display: block;
+            color: var(--cream);
+            font-size: 1rem;
+            margin-bottom: .2rem;
+        }
+
+        .contact-wa-big {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .wa-btn-big {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            background: #25D366;
+            color: #fff;
+            padding: 1.2rem 2.5rem;
+            font-family: 'Jost', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: .08em;
+            text-decoration: none;
+            transition: background .25s, transform .25s, box-shadow .25s;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .wa-btn-big:hover {
+            background: #1ebe5d;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(37, 211, 102, .3);
+        }
+
+        .wa-note {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.05rem;
+            font-style: italic;
+            color: var(--text-muted);
+            text-align: center;
+            width: 100%;
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--dark);
+            padding: 3rem 6%;
+            border-top: 1px solid rgba(255, 255, 255, .07);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--cream);
+        }
+
+        .footer-logo span {
+            color: var(--gold);
+        }
+
+        .footer-copy {
+            font-size: .78rem;
+            letter-spacing: .08em;
+            color: var(--text-muted);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            font-size: .78rem;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color .2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+
+        /* WHATSAPP FLOAT */
+        .wa-float {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 500;
+            width: 58px;
+            height: 58px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, .4);
+            transition: transform .3s, box-shadow .3s;
+            animation: waFloat 3s ease-in-out infinite;
+        }
+
+        .wa-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 30px rgba(37, 211, 102, .6);
+        }
+
+        @keyframes waFloat {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-6px);
+            }
+        }
+
+        .wa-float svg {
+            width: 28px;
+            height: 28px;
+            fill: #fff;
+        }
+
+        /* SCROLL REVEAL */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity .8s ease, transform .8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: opacity .8s ease, transform .8s ease;
+        }
+
+        .reveal-left.visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(40px);
+            transition: opacity .8s ease, transform .8s ease;
+        }
+
+        .reveal-right.visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        /* RESPONSIVE */
+        @media(max-width:900px) {
+
+            #about,
+            .contact-grid,
+            .gym-inner,
+            .product-featured {
+                grid-template-columns: 1fr;
+            }
+
+            .why-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .foosball-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .accessories-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            nav .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .gym-card-stack {
+                height: 300px;
+            }
+
+            .gym-card-back,
+            .gym-card-front {
+                height: 280px;
+            }
+
+            .gym-coming-soon {
+                font-size: 3.5rem;
+            }
+        }
+
+        @media(max-width:600px) {
+            section {
+                padding: 4rem 5%;
+            }
+
+            .why-grid,
+            .foosball-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .accessories-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            #catalog {
+                flex-direction: column;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                text-align: center;
+                justify-content: center;
+            }
+        }
+
+        /* MOBILE NAV OPEN */
+        .mobile-nav {
+            position: fixed;
+            inset: 0;
+            z-index: 999;
+            background: rgba(13, 26, 18, .98);
+            backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2.5rem;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: .4s;
+        }
+
+        .mobile-nav.open {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: all;
+        }
+
+        .mobile-nav a {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--cream);
+            text-decoration: none;
+            transition: color .2s;
+        }
+
+        .mobile-nav a:hover {
+            color: var(--gold);
+        }
+
+        .mobile-nav-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: var(--cream);
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Cursor -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
+    <!-- INTRO ANIMATION OVERLAY -->
+    <div id="intro-overlay">
+        <canvas id="intro-canvas"></canvas>
+        <div class="intro-brand">SINGH <span>BILLIARDS</span></div>
+        <button class="intro-skip" onclick="skipIntro()">Skip ›</button>
+    </div>
+
+    <!-- MOBILE NAV -->
+    <div class="mobile-nav" id="mobileNav">
+        <button class="mobile-nav-close" onclick="closeMobileNav()">✕</button>
+        <a href="#hero" onclick="closeMobileNav()">Home</a>
+        <a href="#about" onclick="closeMobileNav()">About</a>
+        <a href="#products" onclick="closeMobileNav()">Products</a>
+        <a href="#gym" onclick="closeMobileNav()">Gym Line</a>
+        <a href="#clients" onclick="closeMobileNav()">Clients</a>
+        <a href="#contact" onclick="closeMobileNav()">Contact</a>
+        <a href="https://wa.me/919829247707" target="_blank" style="color:#25D366;">WhatsApp Us</a>
+    </div>
+
+    <!-- NAV -->
+    <nav id="navbar">
+        <a class="nav-logo" href="#hero">Singh <span>Billiards</span></a>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li class="dropdown">
+                <a href="#products">Products ▾</a>
+                <ul class="dropdown-menu">
+                    <li><a href="#products" onclick="switchTab('snooker')">Snooker Tables</a></li>
+                    <li><a href="#products" onclick="switchTab('pool')">Pool Tables</a></li>
+                    <li><a href="#products" onclick="switchTab('foosball')">Foosball</a></li>
+                    <li><a href="#products" onclick="switchTab('tt')">TT Tables</a></li>
+                    <li><a href="#products" onclick="switchTab('accessories')">Accessories</a></li>
+                </ul>
+            </li>
+            <li><a href="#gym">Gym Line</a></li>
+            <li><a href="#clients">Clients</a></li>
+            <li><a href="#catalog">Catalog</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="https://wa.me/919829247707" target="_blank" class="nav-cta">WhatsApp Us</a></li>
+        </ul>
+        <div class="hamburger" onclick="openMobileNav()">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section id="hero">
+        <video id="hero-video" autoplay muted loop playsinline>
+            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+            <!-- Replace with actual snooker/pool video URL -->
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-eyebrow">Jaipur · Rajasthan · Since 1999</div>
+            <h1 class="hero-title">
+                Master<br>the <em>Craft.</em>
+            </h1>
+            <p class="hero-subtitle">
+                Rajasthan's only manufacturer of premium billiard tables — handcrafted to international standards, loved
+                by champions.
+            </p>
+            <div class="hero-actions">
+                <a href="https://wa.me/919829247707?text=Hi%20Singh%20Billiards!%20I%27m%20interested%20in%20your%20products."
+                    target="_blank" class="btn-primary">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+                        <path
+                            d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.18 1.6 5.98L0 24l6.197-1.573A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.004-1.364l-.36-.214-3.73.978.998-3.642-.234-.373A9.818 9.818 0 1121.818 12 9.83 9.83 0 0112 21.818z" />
+                    </svg>
+                    Get a Free Quote
+                </a>
+                <a href="#products" class="btn-secondary">
+                    ↓ Explore Products
+                </a>
+            </div>
+        </div>
+        <div class="hero-scroll">
+            <div class="hero-scroll-line"></div>
+            Scroll to explore
+        </div>
+        <div class="hero-since">1999</div>
+    </section>
+
+    <!-- STATS BAR -->
+    <div class="stats-bar">
+        <div class="stats-track" id="statsTicker">
+            <div class="stats-item"><span>25+</span> Years of Excellence <div class="stats-dot"></div>
+            </div>
+            <div class="stats-item"><span>500+</span> Tables Delivered <div class="stats-dot"></div>
+            </div>
+            <div class="stats-item"><span>7+</span> Product Lines <div class="stats-dot"></div>
+            </div>
+            <div class="stats-item"><span>100%</span> Crafted in Rajasthan <div class="stats-dot"></div>
+            </div>
+            <div class="stats-item"><span>International</span> Standards <div class="stats-dot"></div>
+            </div>
+            <div class="stats-item"><span>Snooker</span> · Pool · Foosball · TT <div class="stats-dot"></div>
+            </div>
+            <!-- Duplicate for seamless loop -->
+            <div class="stats-item"><span>25+</span> Years of Excellence <div class="stats-dot"></div>
+            </div>
+            <div class="stats-item"><span>500+</span> Tables Delivered <div class="stats-dot"></div>
+            </div>
+            <div class="stats-item"><span>7+</span> Product Lines <div class="stats-dot"></div>
+            </div>
+            <div class="stats-item"><span>100%</span> Crafted in Rajasthan <div class="stats-dot"></div>
+            </div>
+            <div class="stats-item"><span>International</span> Standards <div class="stats-dot"></div>
+            </div>
+            <div class="stats-item"><span>Snooker</span> · Pool · Foosball · TT <div class="stats-dot"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ABOUT -->
+    <section id="about">
+        <div class="about-text reveal-left">
+            <div class="section-label">Our Story</div>
+            <h2 class="section-title">Crafting<br><em>Excellence</em><br>Since 1999</h2>
+            <p>Founded by <strong>Aman Pal Singh</strong>, Singh Billiards and Sports has become the pioneering force in
+                premium billiard table manufacturing across Rajasthan — and the only producer of its kind in the region.
+            </p>
+            <p>Every table is <strong>meticulously designed</strong> to international standards — from Italian slate
+                surfaces to handcrafted lion-leg woodwork. We serve professional athletes and recreational enthusiasts
+                with equal dedication.</p>
+            <p>Driven by the belief that <strong>every game tells a story</strong>, we engineer tools that inspire
+                confidence and elevate performance at every level of play.</p>
+            <div class="table-specs reveal" style="transition-delay:.2s">
+                <table>
+                    <tr>
+                        <th>Model</th>
+                        <th>Table Size</th>
+                        <th>Min Room Required</th>
+                    </tr>
+                    <tr>
+                        <td>Royal</td>
+                        <td>12′ × 6′</td>
+                        <td>22′ × 16′</td>
+                    </tr>
+                    <tr>
+                        <td>Regent</td>
+                        <td>10′ × 5′</td>
+                        <td>20′ × 15′</td>
+                    </tr>
+                    <tr>
+                        <td>American Pool</td>
+                        <td>9′ × 4.5′</td>
+                        <td>19′ × 14'6″</td>
+                    </tr>
+                    <tr>
+                        <td>Indian Pool</td>
+                        <td>8′ × 4′</td>
+                        <td>18′ × 14′</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="about-visual reveal-right">
+            <div class="about-frame">
+                <div class="founder-name">Aman Pal Singh</div>
+                <div class="founder-title">Founder & Master Craftsman</div>
+                <blockquote class="founder-quote">
+                    "A billiard table is not furniture — it is an instrument. Every joint, every cloth fibre, every
+                    cushion — tuned to perfection."
+                </blockquote>
+            </div>
+            <div
+                style="margin-top:2rem;padding:1.5rem;background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.15);">
+                <div
+                    style="font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem;">
+                    Affiliations</div>
+                <div style="display:flex;gap:1.5rem;flex-wrap:wrap;">
+                    <div
+                        style="font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--cream);letter-spacing:.1em;">
+                        FSIF</div>
+                    <div
+                        style="font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--cream);letter-spacing:.1em;">
+                        ITSF</div>
+                    <div style="font-size:.75rem;color:var(--text-muted);align-self:center;font-style:italic;">
+                        International Foosball Affiliations</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- PRODUCTS -->
+    <section id="products">
+        <div class="products-intro">
+            <div class="reveal">
+                <div class="section-label">Our Range</div>
+                <h2 class="section-title">Premium <em>Tables</em><br>& Equipment</h2>
+            </div>
+            <a href="https://wa.me/919829247707?text=I'd%20like%20to%20enquire%20about%20your%20products"
+                target="_blank" class="btn-primary reveal" style="height:fit-content">Request Custom Quote →</a>
+        </div>
+
+        <div class="product-tabs">
+            <button class="tab-btn active" onclick="switchTab('snooker')">Snooker Tables</button>
+            <button class="tab-btn" onclick="switchTab('pool')">Pool Tables</button>
+            <button class="tab-btn" onclick="switchTab('foosball')">Foosball</button>
+            <button class="tab-btn" onclick="switchTab('tt')">TT & Other</button>
+            <button class="tab-btn" onclick="switchTab('accessories')">Accessories</button>
+        </div>
+
+        <!-- SNOOKER -->
+        <div class="product-panel active" id="panel-snooker">
+            <div class="product-featured">
+                <div class="featured-main" style="background:linear-gradient(135deg,#1a4a2e,#0d1a12);">
+                    <div
+                        style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:.08;">
+                        <div style="font-family:'Bebas Neue';font-size:18rem;color:#c9a84c;letter-spacing:.05em;">12×6
+                        </div>
+                    </div>
+                    <div class="featured-main-content">
+                        <div class="product-card-label">Flagship Model</div>
+                        <div
+                            style="font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:900;color:var(--cream);line-height:1;">
+                            Gold & Pro<br>Series</div>
+                        <div
+                            style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:rgba(245,240,232,.7);margin-top:.8rem;">
+                            12ft × 6ft competition-grade snooker tables, handcrafted in Jaipur</div>
+                        <a href="https://wa.me/919829247707?text=I'm%20interested%20in%20the%20Snooker%20Table%20(Gold/Pro%20Series)"
+                            target="_blank" class="btn-primary" style="margin-top:1.5rem;display:inline-flex;">Get Quote
+                            on WhatsApp →</a>
+                    </div>
+                </div>
+                <div class="featured-specs">
+                    <div
+                        style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--gold);margin-bottom:1.5rem;">
+                        Specifications</div>
+                    <div class="spec-row"><span class="spec-key">Slate Type</span><span class="spec-val">Italian /
+                            Banglori / Indian</span></div>
+                    <div class="spec-row"><span class="spec-key">Cloth</span><span class="spec-val">6811 32oz / 30oz /
+                            Wiraka 777</span></div>
+                    <div class="spec-row"><span class="spec-key">Cushion</span><span class="spec-val">NR / JB Champ /
+                            Melin / Superior</span></div>
+                    <div class="spec-row"><span class="spec-key">Pocket</span><span class="spec-val">Outer Soft / Inner
+                            Bold Leather</span></div>
+                    <div class="spec-row"><span class="spec-key">Legs</span><span class="spec-val">6–8 inch · Bold /
+                            Round / Lion Leg</span></div>
+                    <div class="spec-row"><span class="spec-key">Balls</span><span class="spec-val">JB Pro / Aramith /
+                            Xing Kang</span></div>
+                    <div
+                        style="margin-top:1rem;padding:1rem;background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.2);">
+                        <div
+                            style="font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem;">
+                            Includes 25+ Accessories</div>
+                        <div style="font-size:.88rem;color:var(--text-muted);line-height:1.6;">4 Billiards Cues · Spider
+                            · Scoreboard · Wall Cue Rack · Triangle · Lamp Shades · Gloves + more</div>
+                    </div>
+                </div>
+            </div>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div
+                        style="background:var(--green);width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;">
+                        <div style="text-align:center">
+                            <div style="font-family:'Bebas Neue';font-size:4rem;color:var(--gold)">GOLD</div>
+                            <div style="font-size:.8rem;letter-spacing:.2em;color:var(--text-muted)">SERIES</div>
+                        </div>
+                    </div>
+                    <div class="product-card-info">
+                        <div class="product-card-label">12ft × 6ft</div>
+                        <div class="product-card-name">Gold Series</div>
+                        <a href="https://wa.me/919829247707?text=Enquiry%20for%20Gold%20Series%20Snooker%20Table"
+                            target="_blank" class="product-card-cta">Enquire Now →</a>
+                    </div>
+                    <div class="product-card-tag">Snooker</div>
+                </div>
+                <div class="product-card">
+                    <div
+                        style="background:#162b1e;width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;">
+                        <div style="text-align:center">
+                            <div style="font-family:'Bebas Neue';font-size:4rem;color:var(--gold)">PRO</div>
+                            <div style="font-size:.8rem;letter-spacing:.2em;color:var(--text-muted)">SERIES</div>
+                        </div>
+                    </div>
+                    <div class="product-card-info">
+                        <div class="product-card-label">12ft × 6ft</div>
+                        <div class="product-card-name">Pro Series</div>
+                        <a href="https://wa.me/919829247707?text=Enquiry%20for%20Pro%20Series%20Snooker%20Table"
+                            target="_blank" class="product-card-cta">Enquire Now →</a>
+                    </div>
+                    <div class="product-card-tag">Snooker</div>
+                </div>
+                <div class="product-card">
+                    <div
+                        style="background:#0f2218;width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;">
+                        <div style="text-align:center">
+                            <div style="font-family:'Bebas Neue';font-size:3rem;color:var(--gold)">PLATINUM</div>
+                            <div style="font-size:.8rem;letter-spacing:.2em;color:var(--text-muted)">SERIES</div>
+                        </div>
+                    </div>
+                    <div class="product-card-info">
+                        <div class="product-card-label">10ft × 5ft</div>
+                        <div class="product-card-name">Platinum Series</div>
+                        <a href="https://wa.me/919829247707?text=Enquiry%20for%20Platinum%20Series%20Snooker%20Table"
+                            target="_blank" class="product-card-cta">Enquire Now →</a>
+                    </div>
+                    <div class="product-card-tag">Snooker</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- POOL -->
+        <div class="product-panel" id="panel-pool">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-bottom:3rem;">
+                <div style="background:var(--charcoal);padding:2.5rem;">
+                    <div style="font-family:'Bebas Neue';font-size:3rem;color:var(--gold);letter-spacing:.05em;">Indian
+                        Pool</div>
+                    <div
+                        style="font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin:.5rem 0 1.5rem;">
+                        8ft × 4ft</div>
+                    <div class="spec-row"><span class="spec-key">Slate</span><span class="spec-val">Italian / Banglori /
+                            Indian</span></div>
+                    <div class="spec-row"><span class="spec-key">Cloth</span><span class="spec-val">Super Pool / Wiraka
+                            777</span></div>
+                    <div class="spec-row"><span class="spec-key">Cushion</span><span class="spec-val">JB Champ / Melin /
+                            Superior</span></div>
+                    <div class="spec-row"><span class="spec-key">Legs</span><span class="spec-val">6–8 inch CUT
+                            styles</span></div>
+                    <a href="https://wa.me/919829247707?text=Enquiry%20for%20Indian%20Pool%20Table%208x4"
+                        target="_blank" class="btn-primary" style="margin-top:1.5rem;display:inline-flex;">WhatsApp
+                        Enquiry →</a>
+                </div>
+                <div style="background:var(--charcoal);padding:2.5rem;">
+                    <div style="font-family:'Bebas Neue';font-size:3rem;color:var(--gold);letter-spacing:.05em;">
+                        American Pool</div>
+                    <div
+                        style="font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin:.5rem 0 1.5rem;">
+                        9ft × 4.5ft — Auto Ball Collection</div>
+                    <div class="spec-row"><span class="spec-key">Slate</span><span class="spec-val">Italian / Banglori /
+                            Indian</span></div>
+                    <div class="spec-row"><span class="spec-key">Cloth</span><span class="spec-val">Super Pool / Wiraka
+                            777</span></div>
+                    <div class="spec-row"><span class="spec-key">Special</span><span class="spec-val">100% Imported
+                            Components</span></div>
+                    <div class="spec-row"><span class="spec-key">System</span><span class="spec-val">Auto Ball
+                            Collection</span></div>
+                    <a href="https://wa.me/919829247707?text=Enquiry%20for%20American%20Pool%20Table%209x4.5"
+                        target="_blank" class="btn-primary" style="margin-top:1.5rem;display:inline-flex;">WhatsApp
+                        Enquiry →</a>
+                </div>
+            </div>
+            <div class="products-grid">
+                <div class="product-card" style="cursor:pointer"
+                    onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20SB%204%20Legs%20Pool%20Table','_blank')">
+                    <div
+                        style="background:#1e3b28;width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;flex-direction:column;">
+                        <div style="font-family:'Bebas Neue';font-size:3rem;color:var(--gold)">SB 4 LEGS</div>
+                        <div style="font-size:.75rem;letter-spacing:.2em;color:var(--text-muted)">POOL TABLE</div>
+                    </div>
+                    <div class="product-card-info">
+                        <div class="product-card-name">SB 4 Legs</div>
+                        <div class="product-card-cta">Enquire →</div>
+                    </div>
+                    <div class="product-card-tag">Pool</div>
+                </div>
+                <div class="product-card"
+                    onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20SB%206%20Legs%20Pool%20Table','_blank')"
+                    style="cursor:pointer">
+                    <div
+                        style="background:#162b1e;width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;flex-direction:column;">
+                        <div style="font-family:'Bebas Neue';font-size:3rem;color:var(--gold)">SB 6 LEGS</div>
+                        <div style="font-size:.75rem;letter-spacing:.2em;color:var(--text-muted)">POOL TABLE</div>
+                    </div>
+                    <div class="product-card-info">
+                        <div class="product-card-name">SB 6 Legs</div>
+                        <div class="product-card-cta">Enquire →</div>
+                    </div>
+                    <div class="product-card-tag">Pool</div>
+                </div>
+                <div class="product-card"
+                    onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20SB%20Heritage%20Pool%20Table','_blank')"
+                    style="cursor:pointer">
+                    <div
+                        style="background:#0f2218;width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;flex-direction:column;">
+                        <div style="font-family:'Bebas Neue';font-size:3rem;color:var(--gold)">HERITAGE</div>
+                        <div style="font-size:.75rem;letter-spacing:.2em;color:var(--text-muted)">POOL TABLE</div>
+                    </div>
+                    <div class="product-card-info">
+                        <div class="product-card-name">SB Heritage</div>
+                        <div class="product-card-cta">Enquire →</div>
+                    </div>
+                    <div class="product-card-tag">Pool · Premium</div>
+                </div>
+            </div>
+            <div
+                style="margin-top:1.5rem;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.15);padding:1.5rem;display:flex;gap:2rem;align-items:center;flex-wrap:wrap;">
+                <div style="font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);">Also
+                    available:</div>
+                <div style="font-family:'Cormorant Garamond';font-size:1.1rem;color:var(--cream);">SB Gold · SB Auto
+                    Ball Collection · American Style</div>
+                <a href="https://wa.me/919829247707?text=I'd%20like%20to%20see%20the%20full%20pool%20table%20range"
+                    target="_blank" class="btn-secondary" style="margin-left:auto">View Full Range →</a>
+            </div>
+        </div>
+
+        <!-- FOOSBALL -->
+        <div class="product-panel" id="panel-foosball">
+            <div
+                style="margin-bottom:2.5rem;padding:2rem;background:rgba(201,168,76,.06);border-left:3px solid var(--gold);">
+                <div
+                    style="font-family:'Cormorant Garamond';font-size:1.2rem;color:var(--cream);line-height:1.6;font-style:italic;">
+                    Affiliated by <strong style="color:var(--gold)">FSIF</strong> and <strong
+                        style="color:var(--gold)">ITSF</strong> · Boot Boy Foosball Tables — India 500 Quality Leader
+                    Award · Best Brand 2020</div>
+            </div>
+            <div class="foosball-grid">
+                <div class="foosball-card">
+                    <div class="foosball-model">BB 9009</div>
+                    <div class="foosball-size">55″ × 30″ × 34.5″</div>
+                    <div class="foosball-use">Best for professional tournaments, cinemas, game zones, bars, hospitals.
+                        Medium to heavy usage.</div>
+                    <div class="foosball-badge">Professional Grade</div>
+                    <a href="https://wa.me/919829247707?text=Enquiry%20for%20Foosball%20BB%209009" target="_blank"
+                        class="product-card-cta" style="margin-top:1rem">Get Quote →</a>
+                </div>
+                <div class="foosball-card">
+                    <div class="foosball-model">BB 3003</div>
+                    <div class="foosball-size">48″ × 24″ × 32.5″</div>
+                    <div class="foosball-use">Perfect for home, community clubs, and light commercial use. Compact and
+                        versatile.</div>
+                    <div class="foosball-badge">Home / Club</div>
+                    <a href="https://wa.me/919829247707?text=Enquiry%20for%20Foosball%20BB%203003" target="_blank"
+                        class="product-card-cta" style="margin-top:1rem">Get Quote →</a>
+                </div>
+                <div class="foosball-card">
+                    <div class="foosball-model">BB 6006</div>
+                    <div class="foosball-size">55″ × 30″ × 34.5″</div>
+                    <div class="foosball-use">Tournament-grade premium design. Built for serious competitive play and
+                        institutional use.</div>
+                    <div class="foosball-badge">Tournament</div>
+                    <a href="https://wa.me/919829247707?text=Enquiry%20for%20Foosball%20BB%206006" target="_blank"
+                        class="product-card-cta" style="margin-top:1rem">Get Quote →</a>
+                </div>
+                <div class="foosball-card">
+                    <div class="foosball-model">BB 6111</div>
+                    <div class="foosball-use">Rustic wood finish for premium interiors. Medium commercial usage,
+                        aesthetically stunning.</div>
+                    <div class="foosball-badge">Aesthetic Design</div>
+                    <a href="https://wa.me/919829247707?text=Enquiry%20for%20Foosball%20BB%206111" target="_blank"
+                        class="product-card-cta" style="margin-top:1rem">Get Quote →</a>
+                </div>
+                <div class="foosball-card">
+                    <div class="foosball-model">BB 7001</div>
+                    <div class="foosball-use">Modern matte black design. Contemporary professional grade for upscale
+                        venues.</div>
+                    <div class="foosball-badge">Contemporary Pro</div>
+                    <a href="https://wa.me/919829247707?text=Enquiry%20for%20Foosball%20BB%207001" target="_blank"
+                        class="product-card-cta" style="margin-top:1rem">Get Quote →</a>
+                </div>
+                <div class="foosball-card">
+                    <div class="foosball-model">SB Blue / Real</div>
+                    <div class="foosball-use">Folding leg design for storage convenience. Ideal for schools, homes, and
+                        casual gaming spaces.</div>
+                    <div class="foosball-badge">Compact / Folding</div>
+                    <a href="https://wa.me/919829247707?text=Enquiry%20for%20Foosball%20SB%20Blue%20or%20Real"
+                        target="_blank" class="product-card-cta" style="margin-top:1rem">Get Quote →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- TT & OTHER -->
+        <div class="product-panel" id="panel-tt">
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:2rem;">
+                <div style="background:var(--charcoal);padding:2.5rem;">
+                    <div style="font-family:'Bebas Neue';font-size:2.5rem;color:var(--gold)">TABLE TENNIS</div>
+                    <div
+                        style="font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin:.5rem 0 1.5rem">
+                        9ft × 5ft</div>
+                    <div class="spec-row"><span class="spec-key">Top</span><span class="spec-val">18mm or 25mm</span>
+                    </div>
+                    <div class="spec-row"><span class="spec-key">Wheels</span><span class="spec-val">65mm or
+                            100mm</span></div>
+                    <div class="spec-row"><span class="spec-key">Style</span><span class="spec-val">Standard /
+                            Outdoor</span></div>
+                    <a href="https://wa.me/919829247707?text=Enquiry%20for%20TT%20Table" target="_blank"
+                        class="btn-primary" style="margin-top:1.5rem;display:inline-flex;">Enquire →</a>
+                </div>
+                <div style="background:var(--charcoal);padding:2.5rem;">
+                    <div style="font-family:'Bebas Neue';font-size:2.5rem;color:var(--gold)">CARROM BOARDS</div>
+                    <div
+                        style="font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin:.5rem 0 1.5rem">
+                        Premium Indian Game</div>
+                    <div
+                        style="font-family:'Cormorant Garamond';font-size:1.05rem;line-height:1.6;color:rgba(245,240,232,.7);margin-bottom:1.5rem;">
+                        Tournament-grade carrom boards with smooth polished surface. Available with foldable or mounted
+                        stand.</div>
+                    <a href="https://wa.me/919829247707?text=Enquiry%20for%20Carrom%20Board" target="_blank"
+                        class="btn-primary" style="display:inline-flex;">Enquire →</a>
+                </div>
+                <div style="background:var(--charcoal);padding:2.5rem;">
+                    <div style="font-family:'Bebas Neue';font-size:2.5rem;color:var(--gold)">CHESS TABLES</div>
+                    <div
+                        style="font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin:.5rem 0 1.5rem">
+                        Antique Wooden Design</div>
+                    <div
+                        style="font-family:'Cormorant Garamond';font-size:1.05rem;line-height:1.6;color:rgba(245,240,232,.7);margin-bottom:1.5rem;">
+                        Ornate carved wooden chess tables with metal pieces. A centerpiece for any luxury space or club.
+                    </div>
+                    <a href="https://wa.me/919829247707?text=Enquiry%20for%20Chess%20Table" target="_blank"
+                        class="btn-primary" style="display:inline-flex;">Enquire →</a>
+                </div>
+                <div style="background:var(--charcoal);padding:2.5rem;">
+                    <div style="font-family:'Bebas Neue';font-size:2.5rem;color:var(--gold)">POKER TABLES</div>
+                    <div
+                        style="font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin:.5rem 0 1.5rem">
+                        3 Styles Available</div>
+                    <div
+                        style="font-family:'Cormorant Garamond';font-size:1.05rem;line-height:1.6;color:rgba(245,240,232,.7);margin-bottom:1.5rem;">
+                        Professional poker tables in oval, rectangular and rotating stand styles. Perfect for casinos,
+                        clubs and events.</div>
+                    <a href="https://wa.me/919829247707?text=Enquiry%20for%20Poker%20Table" target="_blank"
+                        class="btn-primary" style="display:inline-flex;">Enquire →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ACCESSORIES -->
+        <div class="product-panel" id="panel-accessories">
+            <div
+                style="margin-bottom:2rem;font-family:'Cormorant Garamond';font-size:1.2rem;color:rgba(245,240,232,.75);max-width:600px;">
+                Everything you need to play your best game — from championship-grade ball sets to precision cues,
+                elegant cue racks, and fine-tuned accessories.</div>
+            <div class="accessories-grid">
+                <div class="accessory-item"
+                    onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20Billiard%20Balls','_blank')">
+                    <div class="accessory-icon">🎱</div>
+                    <div class="accessory-name">Ball Sets</div>
+                </div>
+                <div class="accessory-item"
+                    onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20Cues','_blank')">
+                    <div class="accessory-icon">🪵</div>
+                    <div class="accessory-name">Billiard Cues</div>
+                </div>
+                <div class="accessory-item"
+                    onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20Cue%20Rack','_blank')">
+                    <div class="accessory-icon">🗂️</div>
+                    <div class="accessory-name">Cue Racks</div>
+                </div>
+                <div class="accessory-item"
+                    onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20Snooker%20Triangle','_blank')">
+                    <div class="accessory-icon">🔺</div>
+                    <div class="accessory-name">Triangles</div>
+                </div>
+                <div class="accessory-item"
+                    onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20Lamp%20Shades','_blank')">
+                    <div class="accessory-icon">💡</div>
+                    <div class="accessory-name">Lamp Shades</div>
+                </div>
+                <div class="accessory-item"
+                    onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20Scoreboard','_blank')">
+                    <div class="accessory-icon">📋</div>
+                    <div class="accessory-name">Scoreboards</div>
+                </div>
+                <div class="accessory-item"
+                    onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20Wave%20Hooks','_blank')">
+                    <div class="accessory-icon">🪝</div>
+                    <div class="accessory-name">Wave Hook Sets</div>
+                </div>
+                <div class="accessory-item"
+                    onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20Chalk','_blank')">
+                    <div class="accessory-icon">🟦</div>
+                    <div class="accessory-name">Chalk & Tips</div>
+                </div>
+                <div class="accessory-item"
+                    onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20Table%20Cover','_blank')">
+                    <div class="accessory-icon">🛡️</div>
+                    <div class="accessory-name">Table Covers</div>
+                </div>
+                <div class="accessory-item"
+                    onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20Gloves','_blank')">
+                    <div class="accessory-icon">🧤</div>
+                    <div class="accessory-name">Playing Gloves</div>
+                </div>
+            </div>
+            <div style="margin-top:2.5rem;text-align:center;">
+                <a href="https://wa.me/919829247707?text=Please%20send%20me%20the%20complete%20accessories%20catalog"
+                    target="_blank" class="btn-primary">Request Full Accessories List on WhatsApp →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHY US -->
+    <section id="why">
+        <div class="section-label reveal">Why Singh Billiards</div>
+        <h2 class="section-title reveal" style="margin-bottom:4rem">The <em>Difference</em><br>You Can Feel</h2>
+        <div class="why-grid">
+            <div class="why-card reveal" style="transition-delay:.1s">
+                <div class="why-number">01</div>
+                <div class="why-title">Rajasthan's Only Premium Manufacturer</div>
+                <div class="why-desc">We are the only company in Rajasthan that manufactures international-standard
+                    billiard tables from scratch. No middlemen — pure craft, pure value.</div>
+            </div>
+            <div class="why-card reveal" style="transition-delay:.2s">
+                <div class="why-number">02</div>
+                <div class="why-title">25+ Years of Unbroken Excellence</div>
+                <div class="why-desc">Since 1999, we have served professional clubs, luxury hotels, universities, and
+                    champion players. Our reputation is built one table at a time.</div>
+            </div>
+            <div class="why-card reveal" style="transition-delay:.3s">
+                <div class="why-number">03</div>
+                <div class="why-title">Full Customisation at Every Level</div>
+                <div class="why-desc">Choose your slate type, cloth grade, cushion, pocket, leg design and finish. Every
+                    table is configured to your space and your game.</div>
+            </div>
+            <div class="why-card reveal" style="transition-delay:.4s">
+                <div class="why-number">04</div>
+                <div class="why-title">Complete Installation & Service</div>
+                <div class="why-desc">We deliver, install, level, and tune your table. And when it needs servicing —
+                    we're just a call away. We also repair existing tables.</div>
+            </div>
+            <div class="why-card reveal" style="transition-delay:.5s">
+                <div class="why-number">05</div>
+                <div class="why-title">International Affiliations & Awards</div>
+                <div class="why-desc">Our foosball range is ITSF & FSIF affiliated. Recognised with the India 500
+                    Quality Leader Award and Best Brand certification.</div>
+            </div>
+            <div class="why-card reveal" style="transition-delay:.6s">
+                <div class="why-number">06</div>
+                <div class="why-title">Trusted by Iconic Brands</div>
+                <div class="why-desc">Manipal University, Ananta Hotels & Resorts, Umed Club, Raffles Jaipur, Kedia
+                    Builders — our tables grace the most prestigious spaces.</div>
+            </div>
+        </div>
+    </section>
+    <!-- GYM LINE -->
+    <section id="gym">
+        <div class="gym-inner">
+            <div class="reveal-left">
+                <div class="gym-badge">
+                    <div class="gym-badge-dot"></div>New Launch Incoming
+                </div>
+                <h2 class="gym-title">Singh <em>Fitness</em><br>Gym Line</h2>
+                <p class="gym-desc">The same precision. The same craftsmanship. Now applied to professional-grade gym
+                    and fitness equipment — manufactured right here in Jaipur.</p>
+                <div class="gym-features">
+                    <div class="gym-feature">Commercial Grade Builds</div>
+                    <div class="gym-feature">Custom Club Installations</div>
+                    <div class="gym-feature">Home Gym Solutions</div>
+                    <div class="gym-feature">Made in Rajasthan</div>
+                    <div class="gym-feature">Bulk & Institutional Orders</div>
+                    <div class="gym-feature">Service & Maintenance</div>
+                </div>
+                <a href="https://wa.me/919829247707?text=I'm%20interested%20in%20the%20Singh%20Fitness%20Gym%20Line.%20Please%20notify%20me%20at%20launch!"
+                    target="_blank" class="btn-primary">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+                        <path
+                            d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.18 1.6 5.98L0 24l6.197-1.573A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.004-1.364l-.36-.214-3.73.978.998-3.642-.234-.373A9.818 9.818 0 1121.818 12 9.83 9.83 0 0112 21.818z" />
+                    </svg>
+                    Get Early Access on WhatsApp
+                </a>
+            </div>
+            <div class="reveal-right">
+                <div class="gym-card-stack">
+                    <div class="gym-card-back"></div>
+                    <div class="gym-card-front">
+                        <div class="gym-coming-soon">COMING<br>SOON</div>
+                        <div class="gym-coming-sub">Singh Fitness Line · 2025</div>
+                        <a href="https://wa.me/919829247707?text=Gym%20Line%20Early%20Access" target="_blank"
+                            class="gym-notify">Notify me on WhatsApp →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CLIENTS -->
+    <section id="clients">
+        <div class="section-label reveal">Trusted By</div>
+        <h2 class="section-title reveal">Our <em>Esteemed</em><br>Clients</h2>
+        <div class="clients-marquee">
+            <div class="clients-track">
+                <div class="client-logo">Manipal University Jaipur</div>
+                <div class="client-sep">◆</div>
+                <div class="client-logo">Ananta Hotels & Resorts</div>
+                <div class="client-sep">◆</div>
+                <div class="client-logo">Umed Club</div>
+                <div class="client-sep">◆</div>
+                <div class="client-logo">Kedia Builders & Colonizers</div>
+                <div class="client-sep">◆</div>
+                <div class="client-logo">Shubhashish Homes</div>
+                <div class="client-sep">◆</div>
+                <div class="client-logo">Manglam BDL</div>
+                <div class="client-sep">◆</div>
+                <div class="client-logo">Akshat — A Way of Life</div>
+                <div class="client-sep">◆</div>
+                <div class="client-logo">Raffles Jaipur</div>
+                <div class="client-sep">◆</div>
+                <div class="client-logo">Virasat</div>
+                <div class="client-sep">◆</div>
+                <!-- duplicate -->
+                <div class="client-logo">Manipal University Jaipur</div>
+                <div class="client-sep">◆</div>
+                <div class="client-logo">Ananta Hotels & Resorts</div>
+                <div class="client-sep">◆</div>
+                <div class="client-logo">Umed Club</div>
+                <div class="client-sep">◆</div>
+                <div class="client-logo">Kedia Builders & Colonizers</div>
+                <div class="client-sep">◆</div>
+                <div class="client-logo">Shubhashish Homes</div>
+                <div class="client-sep">◆</div>
+                <div class="client-logo">Manglam BDL</div>
+                <div class="client-sep">◆</div>
+                <div class="client-logo">Akshat — A Way of Life</div>
+                <div class="client-sep">◆</div>
+                <div class="client-logo">Raffles Jaipur</div>
+                <div class="client-sep">◆</div>
+                <div class="client-logo">Virasat</div>
+                <div class="client-sep">◆</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CATALOG -->
+    <section id="catalog">
+        <div class="catalog-text reveal-left">
+            <h2>Download Our<br><em>Product Catalog</em></h2>
+            <p>Browse our complete range of tables, accessories, and equipment. Full specifications, dimensions, and
+                customisation options inside.</p>
+        </div>
+        <div class="catalog-actions reveal-right">
+            <a href="#" class="btn-download" id="catalogDownloadBtn" download>
+                ⬇ Download Catalog PDF
+            </a>
+            <a href="https://wa.me/919829247707?text=Please%20send%20me%20the%20latest%20Singh%20Billiards%20Product%20Catalog"
+                target="_blank" class="btn-wa">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+                    <path
+                        d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.18 1.6 5.98L0 24l6.197-1.573A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.004-1.364l-.36-.214-3.73.978.998-3.642-.234-.373A9.818 9.818 0 1121.818 12 9.83 9.83 0 0112 21.818z" />
+                </svg>
+                Request on WhatsApp
+            </a>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+        <div class="section-label reveal">Get in Touch</div>
+        <h2 class="section-title reveal" style="margin-bottom:4rem">Ready to <em>Play</em>?<br>Let's Talk</h2>
+        <div class="contact-grid">
+            <div class="reveal-left">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div class="contact-detail">
+                            <strong>Visit Our Display Room</strong>
+                            3/341, LBS College Marg, Raja Park,<br>Jaipur, Rajasthan – 302004
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div class="contact-detail">
+                            <strong>Call / WhatsApp</strong>
+                            <a href="tel:+919829247707"
+                                style="color:var(--gold);text-decoration:none;font-size:1.2rem;font-weight:600">+91
+                                98292 47707</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">🔧</div>
+                        <div class="contact-detail">
+                            <strong>Service & Repairs</strong>
+                            We also service and repair existing billiard and snooker tables. Contact us for a service
+                            visit.
+                        </div>
+                    </div>
+                    <div class="contact-item" style="padding-bottom:0;margin-bottom:0;border-bottom:none">
+                        <div class="contact-icon">🕐</div>
+                        <div class="contact-detail">
+                            <strong>Display Room Hours</strong>
+                            Monday–Saturday: 10am – 7pm<br>Sunday: By Appointment
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-wa-big reveal-right">
+                <div
+                    style="font-family:'Cormorant Garamond';font-size:1.3rem;font-style:italic;color:rgba(245,240,232,.7);margin-bottom:1rem;">
+                    The fastest way to reach us — and get a quote — is on WhatsApp.</div>
+                <a href="https://wa.me/919829247707?text=Hi%20Singh%20Billiards!%20I%20would%20like%20to%20enquire%20about%20your%20products."
+                    target="_blank" class="wa-btn-big">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+                        <path
+                            d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.18 1.6 5.98L0 24l6.197-1.573A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.004-1.364l-.36-.214-3.73.978.998-3.642-.234-.373A9.818 9.818 0 1121.818 12 9.83 9.83 0 0112 21.818z" />
+                    </svg>
+                    Chat with Us on WhatsApp
+                </a>
+                <a href="https://wa.me/919829247707?text=I'd%20like%20to%20request%20a%20product%20quote"
+                    target="_blank" class="wa-btn-big" style="background:#1a4a2e;margin-top:.5rem;">
+                    📋 Request a Custom Quote
+                </a>
+                <a href="https://wa.me/919829247707?text=I'd%20like%20to%20schedule%20a%20visit%20to%20your%20display%20room"
+                    target="_blank" class="wa-btn-big" style="background:#2d6b45;margin-top:.5rem;">
+                    🏪 Book a Display Room Visit
+                </a>
+                <div class="wa-note">We typically respond within minutes.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-logo">Singh <span>Billiards</span> <span
+                style="font-size:.85rem;color:var(--text-muted);font-family:'Jost';font-weight:300;letter-spacing:.1em">·
+                Since 1999</span></div>
+        <div class="footer-copy">© 2025 Singh Billiards and Sports, Jaipur. All rights reserved.</div>
+        <div class="footer-links">
+            <a href="#products">Products</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+            <a href="https://wa.me/919829247707" target="_blank">WhatsApp</a>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/919829247707?text=Hi%20Singh%20Billiards!%20I%20have%20an%20enquiry." target="_blank"
+        class="wa-float" title="Chat on WhatsApp">
+        <svg viewBox="0 0 24 24">
+            <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+            <path
+                d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.18 1.6 5.98L0 24l6.197-1.573A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.004-1.364l-.36-.214-3.73.978.998-3.642-.234-.373A9.818 9.818 0 1121.818 12 9.83 9.83 0 0112 21.818z" />
+        </svg>
+    </a>
+
+    <script>
+        // ========== CURSOR ==========
+        const cursor = document.getElementById('cursor');
+        const ring = document.getElementById('cursorRing');
+        let mx = 0, my = 0, rx = 0, ry = 0;
+        document.addEventListener('mousemove', e => {
+            mx = e.clientX; my = e.clientY;
+            cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+        });
+        function animRing() {
+            rx += (mx - rx) * .12; ry += (my - ry) * .12;
+            ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+            requestAnimationFrame(animRing);
+        } animRing();
+        document.querySelectorAll('a,button,.product-card,.accessory-item,.foosball-card,.tab-btn').forEach(el => {
+            el.addEventListener('mouseenter', () => { cursor.classList.add('hover'); ring.classList.add('hover'); });
+            el.addEventListener('mouseleave', () => { cursor.classList.remove('hover'); ring.classList.remove('hover'); });
+        });
+
+        // ========== 3D INTRO ==========
+        const canvas = document.getElementById('intro-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let t = 0;
+        let introPhase = 0; // 0=cue moving, 1=ball rolling, 2=particles, 3=done
+        let cueX = -canvas.width * .3;
+        let cueAngle = -Math.PI / 12;
+        let ballX = canvas.width * .42;
+        let ballY = canvas.height * .5;
+        let ballVX = 0;
+        let ballRadius = 28;
+        let particles = [];
+        let introComplete = false;
+        let frameCount = 0;
+
+        function drawGreenFelt() {
+            const grd = ctx.createRadialGradient(canvas.width / 2, canvas.height / 2, 0, canvas.width / 2, canvas.height / 2, canvas.width * .7);
+            grd.addColorStop(0, '#1a4a2e');
+            grd.addColorStop(.6, '#122e1e');
+            grd.addColorStop(1, '#0a1a10');
+            ctx.fillStyle = grd;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            // table border
+            const tw = canvas.width * .7, th = canvas.height * .5;
+            const tx = (canvas.width - tw) / 2, ty = (canvas.height - th) / 2;
+            ctx.strokeStyle = 'rgba(201,168,76,.5)';
+            ctx.lineWidth = 4;
+            ctx.strokeRect(tx, ty, tw, th);
+            ctx.strokeStyle = 'rgba(201,168,76,.15)';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(tx + 12, ty + 12, tw - 24, th - 24);
+            // pockets
+            const pockets = [
+                [tx, ty], [tx + tw / 2, ty], [tx + tw, ty],
+                [tx, ty + th], [tx + tw / 2, ty + th], [tx + tw, ty + th]
+            ];
+            pockets.forEach(([px, py]) => {
+                ctx.beginPath(); ctx.arc(px, py, 14, 0, Math.PI * 2);
+                ctx.fillStyle = '#050f08'; ctx.fill();
+                ctx.strokeStyle = 'rgba(201,168,76,.4)'; ctx.lineWidth = 2; ctx.stroke();
+            });
+        }
+
+        function drawBall(x, y, r, highlight) {
+            // shadow
+            ctx.beginPath(); ctx.ellipse(x + 6, y + 10, r, r * .4, 0, 0, Math.PI * 2);
+            const sg = ctx.createRadialGradient(x + 6, y + 10, 0, x + 6, y + 10, r);
+            sg.addColorStop(0, 'rgba(0,0,0,.4)'); sg.addColorStop(1, 'transparent');
+            ctx.fillStyle = sg; ctx.fill();
+            // ball
+            const g = ctx.createRadialGradient(x - r * .3, y - r * .3, r * .05, x, y, r);
+            g.addColorStop(0, '#f5f0e8'); g.addColorStop(.5, '#d9d0b8'); g.addColorStop(1, '#b0a888');
+            ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2);
+            ctx.fillStyle = g; ctx.fill();
+            // shine
+            ctx.beginPath(); ctx.arc(x - r * .3, y - r * .35, r * .25, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(255,255,255,.35)'; ctx.fill();
+        }
+
+        function drawCue(cx, cy, angle, length) {
+            ctx.save();
+            ctx.translate(cx, cy); ctx.rotate(angle);
+            const grad = ctx.createLinearGradient(0, -10, 0, 10);
+            grad.addColorStop(0, '#8B6914'); grad.addColorStop(.5, '#c9a84c'); grad.addColorStop(1, '#6b4d0a');
+            ctx.strokeStyle = grad;
+            ctx.lineWidth = 10; ctx.lineCap = 'round';
+            ctx.beginPath(); ctx.moveTo(-length * .9, 0); ctx.lineTo(length * .1, 0);
+            ctx.stroke();
+            // tip
+            ctx.fillStyle = '#e8e0c8'; ctx.strokeStyle = '#aaa'; ctx.lineWidth = 2;
+            ctx.beginPath(); ctx.arc(length * .1, 0, 5, 0, Math.PI * 2);
+            ctx.fill(); ctx.stroke();
+            ctx.restore();
+        }
+
+        function addHitParticles(x, y) {
+            for (let i = 0; i < 30; i++) {
+                const angle = Math.random() * Math.PI * 2;
+                const speed = Math.random() * 5 + 2;
+                particles.push({
+                    x, y, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed,
+                    life: 1, size: Math.random() * 4 + 2,
+                    color: `hsl(${40 + Math.random() * 20},${70 + Math.random() * 30}%,${60 + Math.random() * 30}%)`
+                });
+            }
+        }
+
+        function animIntro() {
+            if (introComplete) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawGreenFelt();
+            frameCount++;
+
+            // Phase 0: cue slides in
+            if (introPhase === 0) {
+                cueX += (canvas.width * .28 - cueX) * .06;
+                const cueTipX = canvas.width * .42 - ballRadius - 2;
+                const cueCenterX = cueTipX - 400;
+                drawCue(cueCenterX, ballY, cueAngle, 500);
+                drawBall(ballX, ballY, ballRadius);
+                if (Math.abs(cueX - (canvas.width * .28)) < 2) {
+                    introPhase = 1;
+                    setTimeout(() => {
+                        introPhase = 2;
+                        ballVX = 12;
+                        addHitParticles(ballX, ballY);
+                    }, 400);
+                }
+            }
+
+            // Phase 1: cue poised
+            if (introPhase === 1) {
+                const cueTipX = ballX - ballRadius - 3;
+                const cueCenterX = cueTipX - 300;
+                drawCue(cueCenterX, ballY, cueAngle, 500);
+                drawBall(ballX, ballY, ballRadius);
+            }
+
+            // Phase 2: ball rolls
+            if (introPhase >= 2) {
+                ballX += ballVX;
+                ballVX *= .98;
+                particles.forEach(p => {
+                    p.x += p.vx; p.y += p.vy; p.vy += .15; p.life -= .025;
+                    ctx.beginPath(); ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color; ctx.globalAlpha = p.life; ctx.fill();
+                });
+                ctx.globalAlpha = 1;
+                particles = particles.filter(p => p.life > 0);
+                drawBall(ballX, ballY, ballRadius);
+
+                // cue fades out
+                if (ballVX > 0.5) {
+                    const cueTipX = ballX - 250;
+                    drawCue(cueTipX - 300, ballY, cueAngle, 500);
+                }
+
+                // Phase 3: done
+                if (ballX > canvas.width * 1.1 && particles.length === 0) {
+                    introPhase = 3;
+                    setTimeout(endIntro, 400);
+                }
+            }
+
+            if (introPhase < 3) requestAnimationFrame(animIntro);
+        }
+
+        function endIntro() {
+            introComplete = true;
+            document.getElementById('intro-overlay').classList.add('hidden');
+        }
+
+        function skipIntro() { endIntro(); }
+
+        // Start
+        setTimeout(animIntro, 500);
+        // Auto skip after 6s
+        setTimeout(endIntro, 6000);
+
+        // ========== NAV SCROLL ==========
+        window.addEventListener('scroll', () => {
+            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
+        });
+
+        // ========== TABS ==========
+        function switchTab(name) {
+            document.querySelectorAll('.tab-btn').forEach((b, i) => {
+                const panels = ['snooker', 'pool', 'foosball', 'tt', 'accessories'];
+                b.classList.toggle('active', panels[i] === name);
+            });
+            document.querySelectorAll('.product-panel').forEach(p => {
+                p.classList.toggle('active', p.id === 'panel-' + name);
+            });
+            document.getElementById('products').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // ========== MOBILE NAV ==========
+        function openMobileNav() { document.getElementById('mobileNav').classList.add('open'); }
+        function closeMobileNav() { document.getElementById('mobileNav').classList.remove('open'); }
+
+        // ========== SCROLL REVEAL ==========
+        const revealEls = document.querySelectorAll('.reveal,.reveal-left,.reveal-right');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) e.target.classList.add('visible');
+            });
+        }, { threshold: .12 });
+        revealEls.forEach(el => observer.observe(el));
+
+        // ========== CATALOG NOTE ==========
+        // The download link href can be updated dynamically via backend.
+        // Set the actual PDF URL here or via CMS integration:
+        // document.getElementById('catalogDownloadBtn').href = 'YOUR_CATALOG_PDF_URL';
+    </script>
+</body>
+
+</html>
