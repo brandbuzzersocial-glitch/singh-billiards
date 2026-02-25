@@ -2572,12 +2572,12 @@
                 setTimeout(() => { overlay.style.display = 'none'; }, 700);
             }
             window.skipIntro = endIntro;
+            setTimeout(endIntro, 4200);
 
-            // Load Three.js then run
             const s = document.createElement('script');
             s.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
             s.onload = runIntro;
-            s.onerror = endIntro; // fallback if CDN fails
+            s.onerror = endIntro;
             document.head.appendChild(s);
 
             function runIntro() {
@@ -2600,12 +2600,10 @@
 
                 // ---- CAMERA ----
                 const camera = new THREE.PerspectiveCamera(42, window.innerWidth / window.innerHeight, 0.1, 100);
-                // Start close and slightly above-left
                 camera.position.set(-0.6, 0.55, 1.4);
                 camera.lookAt(0, 0, 0);
 
                 // ---- FELT PLANE ----
-                // Build a subtle grid felt texture on canvas
                 const feltCanvas = document.createElement('canvas');
                 feltCanvas.width = feltCanvas.height = 256;
                 const fc = feltCanvas.getContext('2d');
@@ -2639,26 +2637,27 @@
                     envMapIntensity: 1.2
                 });
                 const ball = new THREE.Mesh(ballGeo, ballMat);
-                ball.position.set(0, -0.1, 0);
+                ball.position.set(0, -0.1, 0); // Radius 0.22, Y offset for slight sink
                 ball.castShadow = true;
                 scene.add(ball);
 
                 // ---- CUE STICK ----
-                // Taper: narrow cylinder for cue
+                // length 3.2, so half = 1.6
                 const cueGeo = new THREE.CylinderGeometry(0.012, 0.028, 3.2, 16);
                 const cueMat = new THREE.MeshStandardMaterial({ color: 0x8B5E10, roughness: 0.35, metalness: 0.2 });
                 const cue = new THREE.Mesh(cueGeo, cueMat);
                 cue.rotation.z = Math.PI / 2;
-                // tip
+
+                // tip at center of cylinder end (1.6 from center)
                 const tipGeo = new THREE.CylinderGeometry(0.012, 0.012, 0.05, 12);
                 const tipMat = new THREE.MeshStandardMaterial({ color: 0xd4b880, roughness: 0.6 });
                 const tip = new THREE.Mesh(tipGeo, tipMat);
                 tip.rotation.z = Math.PI / 2;
-                tip.position.x = 1.625;
+                tip.position.x = 1.6;
+
                 const cueGroup = new THREE.Group();
                 cueGroup.add(cue); cueGroup.add(tip);
-                cueGroup.position.set(-3.8, -0.1, 0); // start off-screen left
-                cueGroup.rotation.y = 0;
+                cueGroup.position.set(-5.0, -0.1, 0); // Start far left
                 scene.add(cueGroup);
 
                 // ---- PARTICLES ----
@@ -2694,7 +2693,6 @@
 
                 // ---- LIGHTS ----
                 scene.add(new THREE.AmbientLight(0x112210, 0.55));
-
                 const spot = new THREE.SpotLight(0xfff5d0, 2.4);
                 spot.position.set(-1.5, 3.5, 1.2);
                 spot.angle = 0.38;
@@ -2705,30 +2703,25 @@
                 spot.shadow.mapSize.set(1024, 1024);
                 spot.shadow.bias = -0.002;
                 scene.add(spot);
-                scene.add(spot.target); // target stays at 0,0,0
-
-                // Subtle gold rim from right
+                scene.add(spot.target);
                 const rimLight = new THREE.PointLight(0xc9a84c, 0.6, 6);
                 rimLight.position.set(2, 1, -1);
                 scene.add(rimLight);
 
                 // ---- ANIMATION STATE ----
                 const clock = new THREE.Clock();
-                let phase = 0; // 0=pullback, 1=cue approach, 2=strike, 3=ball travel, 4=done
+                let phase = 0;
                 let elapsed = 0;
+                let ballVelX = 0;
+                let shakeFrames = 0;
 
-                // Camera start / end positions
                 const camStart = new THREE.Vector3(-0.6, 0.55, 1.4);
                 const camPullback = new THREE.Vector3(0.1, 0.72, 2.8);
                 const camFinal = new THREE.Vector3(0.6, 1.1, 3.8);
 
-                // Ball travel
-                let ballVelX = 0, ballVelZ = 0;
-                let shakeFrames = 0;
-
                 function lerp(a, b, t) { return a + (b - a) * t; }
                 function easeOut(t) { return 1 - (1 - t) * (1 - t); }
-                function easeIn(t) { return t * t; }
+                function easeInSnap(t) { return t * t * t * t; }
 
                 function tick() {
                     if (skipped) { renderer.dispose(); return; }
@@ -2737,102 +2730,87 @@
                     const dt = Math.min(clock.getDelta(), 0.05);
                     elapsed += dt;
 
-                    // ---- PHASE 0: pull back + cue enters (0 → 1.2s) ----
-                    if (phase === 0) {
-                        const p = Math.min(elapsed / 1.2, 1);
-                        const ep = easeOut(p);
-                        camera.position.lerpVectors(camStart, camPullback, ep);
-                        camera.lookAt(0, 0, 0);
-                        // Cue slides in from left
-                        const cueTargetX = -0.9; // resting position before approach
-                        cueGroup.position.x = lerp(-3.8, cueTargetX, easeOut(Math.min(elapsed / 0.9, 1)));
-                        if (elapsed >= 1.2) { phase = 1; elapsed = 0; }
+                    // HARD CLAMP — runs every frame
+                    const BALL_X = ball.position.x;
+                    const CONTACT_X = BALL_X - 0.22 - 1.6;
+                    if (cueGroup.position.x + 1.6 > BALL_X - 0.22) {
+                        cueGroup.position.x = CONTACT_X;
                     }
 
-                    // ---- PHASE 1: cue approaches ball (0 → 0.7s) ----
-                    else if (phase === 1) {
-                        const p = Math.min(elapsed / 0.7, 1);
-                        // cue tip needs to end up touching ball at x ~ -0.22 (ball.position.x - radius)
-                        const cueEndX = -0.22 - 1.625; // center of cueGroup when tip touches
-                        cueGroup.position.x = lerp(-0.9, cueEndX, easeIn(p));
+                    // PHASE 0: Entrance (1.1s)
+                    if (phase === 0) {
+                        const t = Math.min(elapsed / 1.1, 1);
+                        camera.position.lerpVectors(camStart, camPullback, easeOut(t));
                         camera.lookAt(0, 0, 0);
-                        if (elapsed >= 0.7) {
-                            phase = 2; elapsed = 0;
-                            // STRIKE
-                            ballVelX = 0.18;
-                            ballVelZ = -0.04;
+                        cueGroup.position.x = lerp(-5.0, -2.3, easeOut(t));
+                        if (elapsed >= 1.1) { phase = 1; elapsed = 0; }
+                    }
+                    // PHASE 1: Wind-up (0.35s)
+                    else if (phase === 1) {
+                        const t = Math.min(elapsed / 0.35, 1);
+                        cueGroup.position.x = lerp(-2.3, -2.7, easeOut(t));
+                        camera.lookAt(0, 0, 0);
+                        if (elapsed >= 0.35) { phase = 2; elapsed = 0; }
+                    }
+                    // PHASE 2: Strike (0.1s)
+                    else if (phase === 2) {
+                        const t = Math.min(elapsed / 0.1, 1);
+                        cueGroup.position.x = lerp(-2.7, -1.82, easeInSnap(t));
+                        camera.lookAt(0, 0, 0);
+                        if (elapsed >= 0.1) {
+                            ballVelX = 0.22;
                             spawnParticles(ball.position.x, ball.position.y, ball.position.z);
-                            shakeFrames = 6;
+                            shakeFrames = 7;
+                            phase = 3; elapsed = 0;
                         }
                     }
-
-                    // ---- PHASE 2+3: ball travels, camera tracks (0 → 1.3s) ----
-                    else if (phase === 2) {
-                        // move ball
+                    // PHASE 3: Ball travel + Recoil (1.4s)
+                    else if (phase === 3) {
                         ball.position.x += ballVelX;
-                        ball.position.z += ballVelZ;
-                        ball.rotation.z -= ballVelX * 4; // spin
-                        ballVelX *= 0.97;
-                        ballVelZ *= 0.97;
+                        ballVelX *= 0.965;
+                        ball.rotation.z -= ballVelX * 4.5;
 
-                        // camera shake
+                        cueGroup.position.x += (-2.8 - cueGroup.position.x) * 0.1;
+
                         if (shakeFrames > 0) {
-                            camera.position.x += (Math.random() - .5) * 0.018;
-                            camera.position.y += (Math.random() - .5) * 0.010;
+                            camera.position.x += (Math.random() - 0.5) * 0.03;
+                            camera.position.y += (Math.random() - 0.5) * 0.016;
                             shakeFrames--;
                         }
 
-                        // camera slowly pulls back further and tilts up
-                        const p = Math.min(elapsed / 1.3, 1);
-                        const ep = easeOut(p);
-                        camera.position.lerpVectors(camPullback, camFinal, ep);
-                        camera.lookAt(lerp(0, ball.position.x * .5, ep), 0, 0);
+                        const t = Math.min(elapsed / 1.4, 1);
+                        camera.position.lerpVectors(camPullback, camFinal, easeOut(t));
+                        camera.lookAt(lerp(0, ball.position.x * 0.4, easeOut(t)), 0, 0);
 
-                        // particles
                         if (partActive) {
-                            let allDead = true;
                             for (let i = 0; i < partCount; i++) {
                                 const v = partVelocities[i];
                                 if (v.life <= 0) continue;
-                                allDead = false;
-                                v.life -= dt * 1.8;
-                                v.vy -= dt * 0.08; // gravity
+                                v.life -= dt * 1.5;
+                                v.vy -= dt * 0.1;
                                 partPositions[i * 3] += v.vx;
                                 partPositions[i * 3 + 1] += v.vy;
                                 partPositions[i * 3 + 2] += v.vz;
                             }
                             partGeo.attributes.position.needsUpdate = true;
-                            partMat.opacity = Math.max(0, partMat.opacity - dt * 1.4);
-                            if (allDead || partMat.opacity <= 0) partActive = false;
+                            partMat.opacity = Math.max(0, partMat.opacity - dt * 1.2);
                         }
 
-                        // cue drifts back left
-                        cueGroup.position.x -= 0.015;
-
-                        // brand text at 1.0s
-                        if (elapsed >= 1.0) brandEl.classList.add('show');
-
-                        if (elapsed >= 1.3) { phase = 3; elapsed = 0; }
+                        if (elapsed >= 0.9) brandEl.classList.add('show');
+                        if (elapsed >= 1.4) { phase = 4; elapsed = 0; }
                     }
-
-                    // ---- PHASE 3: hold then fade (0 → 0.7s) ----
-                    else if (phase === 3) {
-                        ball.position.x += ballVelX * 0.5;
-                        if (elapsed >= 0.5) {
-                            // fade overlay
-                            const fo = Math.max(0, 1 - (elapsed - 0.5) / 0.5);
+                    // PHASE 4: Fade out (0.8s)
+                    else if (phase === 4) {
+                        if (elapsed >= 0.3) {
+                            const fo = Math.max(0, 1 - (elapsed - 0.3) / 0.5);
                             overlay.style.opacity = fo;
-                            if (fo <= 0) { phase = 4; endIntro(); }
+                            if (fo <= 0) { endIntro(); }
                         }
                     }
 
                     renderer.render(scene, camera);
                 }
-
                 tick();
-
-                // Hard cap
-                setTimeout(endIntro, 4200);
             }
         })();
 
