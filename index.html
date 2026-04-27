@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Singh Billiards — Since 1999 | Jaipur</title>
+    <title>Singh Billiards - Since 1999 | Jaipur</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -313,10 +313,11 @@
         #hero {
             position: relative;
             height: 100vh;
-            min-height: 600px;
+            min-height: 850px;
             display: flex;
             align-items: center;
             overflow: hidden;
+            padding-top: 80px;
         }
 
         #hero-video {
@@ -740,6 +741,41 @@
         .product-panel.active {
             display: block;
         }
+
+        /* Sub-tabs for Series */
+        .sub-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            padding: 0.5rem;
+            background: rgba(255,255,255,0.03);
+            border-radius: 50px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .sub-tab-btn {
+            padding: 0.8rem 2rem;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            font-family: 'Jost', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 50px;
+        }
+        .sub-tab-btn.active {
+            background: var(--gold);
+            color: var(--charcoal);
+            box-shadow: 0 4px 15px rgba(201,168,76,0.3);
+        }
+        .series-panel { display: none; animation: fadeIn 0.5s ease both; }
+        .series-panel.active { display: block; }
 
         .products-grid {
             display: grid;
@@ -1705,7 +1741,10 @@
     <!-- INTRO ANIMATION OVERLAY -->
     <div id="intro-overlay">
         <canvas id="intro-canvas"></canvas>
-        <div class="intro-brand">SINGH <span>BILLIARDS</span></div>
+        <div class="intro-brand">
+            <img src="images/logo.png" alt="Logo" style="display:block; margin:0 auto 1.5rem; height:80px; width:auto; filter: drop-shadow(0 0 15px rgba(201,168,76,0.4));">
+            SINGH <span>BILLIARDS</span>
+        </div>
         <button class="intro-skip" onclick="skipIntro()">Skip ›</button>
     </div>
 
@@ -1723,7 +1762,7 @@
 
     <!-- NAV -->
     <nav id="navbar">
-        <a class="nav-logo" href="#hero">Singh <span>Billiards</span></a>
+        <a class="nav-logo" href="#hero"><img src="images/logo.png" alt="Singh Billiards" style="height: 60px; width: auto; vertical-align: middle;"></a>
         <ul class="nav-links">
             <li><a href="#about">About</a></li>
             <li class="dropdown">
@@ -1760,7 +1799,7 @@
                 Master<br>the <em>Craft.</em>
             </h1>
             <p class="hero-subtitle">
-                Rajasthan's only manufacturer of premium billiard tables — handcrafted to international standards, loved
+                Rajasthan's only manufacturer of premium billiard tables - handcrafted to international standards, loved
                 by champions.
             </p>
             <div class="hero-actions">
@@ -1791,9 +1830,9 @@
         <div class="stats-track" id="statsTicker">
             <div class="stats-item"><span>25+</span> Years of Excellence <div class="stats-dot"></div>
             </div>
-            <div class="stats-item"><span>500+</span> Tables Delivered <div class="stats-dot"></div>
+            <div class="stats-item"><span>4000+</span> Tables Delivered <div class="stats-dot"></div>
             </div>
-            <div class="stats-item"><span>7+</span> Product Lines <div class="stats-dot"></div>
+            <div class="stats-item"><span>50+</span> Product Lines <div class="stats-dot"></div>
             </div>
             <div class="stats-item"><span>100%</span> Crafted in Rajasthan <div class="stats-dot"></div>
             </div>
@@ -1804,9 +1843,9 @@
             <!-- Duplicate for seamless loop -->
             <div class="stats-item"><span>25+</span> Years of Excellence <div class="stats-dot"></div>
             </div>
-            <div class="stats-item"><span>500+</span> Tables Delivered <div class="stats-dot"></div>
+            <div class="stats-item"><span>4000+</span> Tables Delivered <div class="stats-dot"></div>
             </div>
-            <div class="stats-item"><span>7+</span> Product Lines <div class="stats-dot"></div>
+            <div class="stats-item"><span>50+</span> Product Lines <div class="stats-dot"></div>
             </div>
             <div class="stats-item"><span>100%</span> Crafted in Rajasthan <div class="stats-dot"></div>
             </div>
@@ -1823,9 +1862,9 @@
             <div class="section-label">Our Story</div>
             <h2 class="section-title">Crafting<br><em>Excellence</em><br>Since 1999</h2>
             <p>Founded by <strong>Aman Pal Singh</strong>, Singh Billiards and Sports has become the pioneering force in
-                premium billiard table manufacturing across Rajasthan — and the only producer of its kind in the region.
+                premium billiard table manufacturing across Rajasthan - and the only producer of its kind in the region.
             </p>
-            <p>Every table is <strong>meticulously designed</strong> to international standards — from Italian slate
+            <p>Every table is <strong>meticulously designed</strong> to international standards - from Italian slate
                 surfaces to handcrafted lion-leg woodwork. We serve professional athletes and recreational enthusiasts
                 with equal dedication.</p>
             <p>Driven by the belief that <strong>every game tells a story</strong>, we engineer tools that inspire
@@ -1865,8 +1904,8 @@
                 <div class="founder-name">Aman Pal Singh</div>
                 <div class="founder-title">Founder & Master Craftsman</div>
                 <blockquote class="founder-quote">
-                    "A billiard table is not furniture — it is an instrument. Every joint, every cloth fibre, every
-                    cushion — tuned to perfection."
+                    "A billiard table is not furniture - it is an instrument. Every joint, every cloth fibre, every
+                    cushion - tuned to perfection."
                 </blockquote>
             </div>
             <div
@@ -1908,100 +1947,126 @@
 
         <!-- SNOOKER -->
         <div class="product-panel active" id="panel-snooker">
-            <div class="product-featured">
-                <div class="featured-main" style="background:linear-gradient(135deg,#1a4a2e,#0d1a12);">
-                    <div
-                        style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:.08;">
-                        <div style="font-family:'Bebas Neue';font-size:18rem;color:#c9a84c;letter-spacing:.05em;">12×6
+            <div class="sub-tabs">
+                <button class="sub-tab-btn active" onclick="switchSeries('gold')">Gold Series</button>
+                <button class="sub-tab-btn" onclick="switchSeries('pro')">Pro Series</button>
+                <button class="sub-tab-btn" onclick="switchSeries('platinum')">Platinum Series</button>
+            </div>
+
+            <!-- GOLD SERIES -->
+            <div class="series-panel active" id="series-gold">
+                <div class="products-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+                    <!-- SB V8 -->
+                    <div class="product-card">
+                        <div class="product-img-container" style="background:#0d1a12; width:100%; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center;">
+                            <img src="images/snooker/sb_v8.png" alt="SB V8 Snooker Table" style="width:100%; height:100%; object-fit:cover;">
                         </div>
+                        <div class="product-card-info">
+                            <div class="product-card-label">Bangalore Slate · Elite</div>
+                            <div class="product-card-name">SB V8</div>
+                            <div class="product-card-specs" style="font-size: 0.8rem; color: var(--text-muted); margin: 0.5rem 0; line-height: 1.4;">
+                                <strong>Cloth:</strong> Spain 32oz/Pns888<br>
+                                <strong>Cushion:</strong> Laminated<br>
+                                <strong>Balls:</strong> William Snooker Set
+                            </div>
+                            <a href="https://wa.me/919829247707?text=Enquiry%20for%20SB%20V8%20Snooker%20Table"
+                                target="_blank" class="product-card-cta">Enquire Now →</a>
+                        </div>
+                        <div class="product-card-tag">Gold Series</div>
                     </div>
-                    <div class="featured-main-content">
-                        <div class="product-card-label">Flagship Model</div>
-                        <div
-                            style="font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:900;color:var(--cream);line-height:1;">
-                            Gold & Pro<br>Series</div>
-                        <div
-                            style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:rgba(245,240,232,.7);margin-top:.8rem;">
-                            12ft × 6ft competition-grade snooker tables, handcrafted in Jaipur</div>
-                        <a href="https://wa.me/919829247707?text=I'm%20interested%20in%20the%20Snooker%20Table%20(Gold/Pro%20Series)"
-                            target="_blank" class="btn-primary" style="margin-top:1.5rem;display:inline-flex;">Get Quote
-                            on WhatsApp →</a>
+
+                    <!-- SB V10 -->
+                    <div class="product-card">
+                        <div class="product-img-container" style="background:#0d1a12; width:100%; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center;">
+                            <img src="images/snooker/sb_v10.png" alt="SB V10 Snooker Table" style="width:100%; height:100%; object-fit:cover;">
+                        </div>
+                        <div class="product-card-info">
+                            <div class="product-card-label">Imported Slate · Professional</div>
+                            <div class="product-card-name">SB V10</div>
+                            <div class="product-card-specs" style="font-size: 0.8rem; color: var(--text-muted); margin: 0.5rem 0; line-height: 1.4;">
+                                <strong>Cloth:</strong> Spain 32oz/Pns888<br>
+                                <strong>Cushion:</strong> Laminated<br>
+                                <strong>Balls:</strong> Partners Snooker Set
+                            </div>
+                            <a href="https://wa.me/919829247707?text=Enquiry%20for%20SB%20V10%20Snooker%20Table"
+                                target="_blank" class="product-card-cta">Enquire Now →</a>
+                        </div>
+                        <div class="product-card-tag">Gold Series</div>
                     </div>
-                </div>
-                <div class="featured-specs">
-                    <div
-                        style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--gold);margin-bottom:1.5rem;">
-                        Specifications</div>
-                    <div class="spec-row"><span class="spec-key">Slate Type</span><span class="spec-val">Italian /
-                            Banglori / Indian</span></div>
-                    <div class="spec-row"><span class="spec-key">Cloth</span><span class="spec-val">6811 32oz / 30oz /
-                            Wiraka 777</span></div>
-                    <div class="spec-row"><span class="spec-key">Cushion</span><span class="spec-val">NR / JB Champ /
-                            Melin / Superior</span></div>
-                    <div class="spec-row"><span class="spec-key">Pocket</span><span class="spec-val">Outer Soft / Inner
-                            Bold Leather</span></div>
-                    <div class="spec-row"><span class="spec-key">Legs</span><span class="spec-val">6–8 inch · Bold /
-                            Round / Lion Leg</span></div>
-                    <div class="spec-row"><span class="spec-key">Balls</span><span class="spec-val">JB Pro / Aramith /
-                            Xing Kang</span></div>
-                    <div
-                        style="margin-top:1rem;padding:1rem;background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.2);">
-                        <div
-                            style="font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem;">
-                            Includes 25+ Accessories</div>
-                        <div style="font-size:.88rem;color:var(--text-muted);line-height:1.6;">4 Billiards Cues · Spider
-                            · Scoreboard · Wall Cue Rack · Triangle · Lamp Shades · Gloves + more</div>
+
+                    <!-- SB V12 -->
+                    <div class="product-card">
+                        <div class="product-img-container" style="background:#0d1a12; width:100%; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center;">
+                            <img src="images/snooker/sb_v12.png" alt="SB V12 Snooker Table" style="width:100%; height:100%; object-fit:cover;">
+                        </div>
+                        <div class="product-card-info">
+                            <div class="product-card-label">Imported Slate · Premium</div>
+                            <div class="product-card-name">SB V12</div>
+                            <div class="product-card-specs" style="font-size: 0.8rem; color: var(--text-muted); margin: 0.5rem 0; line-height: 1.4;">
+                                <strong>Cloth:</strong> Spain 32oz<br>
+                                <strong>Cushion:</strong> Laminated Matt<br>
+                                <strong>Balls:</strong> Partners Premium Set
+                            </div>
+                            <a href="https://wa.me/919829247707?text=Enquiry%20for%20SB%20V12%20Snooker%20Table"
+                                target="_blank" class="product-card-cta">Enquire Now →</a>
+                        </div>
+                        <div class="product-card-tag">Gold Series</div>
+                    </div>
+
+                    <!-- SB V16 -->
+                    <div class="product-card">
+                        <div class="product-img-container" style="background:#0d1a12; width:100%; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center;">
+                            <img src="images/snooker/sb_v16.png" alt="SB V16 Snooker Table" style="width:100%; height:100%; object-fit:cover;">
+                        </div>
+                        <div class="product-card-info">
+                            <div class="product-card-label">Imported Italian Slate · Tournament</div>
+                            <div class="product-card-name">SB V16</div>
+                            <div class="product-card-specs" style="font-size: 0.8rem; color: var(--text-muted); margin: 0.5rem 0; line-height: 1.4;">
+                                <strong>Cloth:</strong> PNS CLUB+<br>
+                                <strong>Cushion:</strong> Laminated Steel<br>
+                                <strong>Balls:</strong> Aramith 1G Set
+                            </div>
+                            <a href="https://wa.me/919829247707?text=Enquiry%20for%20SB%20V16%20Snooker%20Table"
+                                target="_blank" class="product-card-cta">Enquire Now →</a>
+                        </div>
+                        <div class="product-card-tag">Gold Series</div>
                     </div>
                 </div>
             </div>
-            <div class="products-grid">
-                <div class="product-card">
-                    <div
-                        style="background:var(--green);width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;">
-                        <div style="text-align:center">
-                            <div style="font-family:'Bebas Neue';font-size:4rem;color:var(--gold)">GOLD</div>
-                            <div style="font-size:.8rem;letter-spacing:.2em;color:var(--text-muted)">SERIES</div>
-                        </div>
-                    </div>
-                    <div class="product-card-info">
-                        <div class="product-card-label">12ft × 6ft</div>
-                        <div class="product-card-name">Gold Series</div>
-                        <a href="https://wa.me/919829247707?text=Enquiry%20for%20Gold%20Series%20Snooker%20Table"
-                            target="_blank" class="product-card-cta">Enquire Now →</a>
-                    </div>
-                    <div class="product-card-tag">Snooker</div>
+
+            <!-- PRO SERIES -->
+            <div class="series-panel" id="series-pro">
+                <div style="padding:4rem; text-align:center; background:rgba(255,255,255,0.02); border:1px dashed rgba(201,168,76,0.2);">
+                    <div style="font-family:'Bebas Neue'; font-size:2.5rem; color:var(--gold); margin-bottom:1rem;">Pro Series</div>
+                    <p style="color:var(--text-muted);">Professional-grade snooker tables for clubs and tournaments. Models coming soon.</p>
                 </div>
-                <div class="product-card">
-                    <div
-                        style="background:#162b1e;width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;">
-                        <div style="text-align:center">
-                            <div style="font-family:'Bebas Neue';font-size:4rem;color:var(--gold)">PRO</div>
-                            <div style="font-size:.8rem;letter-spacing:.2em;color:var(--text-muted)">SERIES</div>
-                        </div>
-                    </div>
-                    <div class="product-card-info">
-                        <div class="product-card-label">12ft × 6ft</div>
-                        <div class="product-card-name">Pro Series</div>
-                        <a href="https://wa.me/919829247707?text=Enquiry%20for%20Pro%20Series%20Snooker%20Table"
-                            target="_blank" class="product-card-cta">Enquire Now →</a>
-                    </div>
-                    <div class="product-card-tag">Snooker</div>
+            </div>
+
+            <!-- PLATINUM SERIES -->
+            <div class="series-panel" id="series-platinum">
+                <div style="padding:4rem; text-align:center; background:rgba(255,255,255,0.02); border:1px dashed rgba(201,168,76,0.2);">
+                    <div style="font-family:'Bebas Neue'; font-size:2.5rem; color:var(--gold); margin-bottom:1rem;">Platinum Series</div>
+                    <p style="color:var(--text-muted);">The ultimate in luxury and precision. Hand-crafted limited edition tables. Models coming soon.</p>
                 </div>
-                <div class="product-card">
-                    <div
-                        style="background:#0f2218;width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;">
-                        <div style="text-align:center">
-                            <div style="font-family:'Bebas Neue';font-size:3rem;color:var(--gold)">PLATINUM</div>
-                            <div style="font-size:.8rem;letter-spacing:.2em;color:var(--text-muted)">SERIES</div>
-                        </div>
+            </div>
+
+            <!-- Detailed Specifications & Accessories Note -->
+            <div class="snooker-details" style="margin-top: 4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; background: var(--charcoal); padding: 3rem; border: 1px solid rgba(201,168,76,.1);">
+                <div>
+                    <h3 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--gold); margin-bottom: 1.5rem;">Standard Specifications</h3>
+                    <div class="spec-row"><span class="spec-key">Slate Type</span><span class="spec-val">Italian / Banglori / Indian</span></div>
+                    <div class="spec-row"><span class="spec-key">Cloth</span><span class="spec-val">6811, Spain 32oz, Pns, Liberwin, Wiraka 777</span></div>
+                    <div class="spec-row"><span class="spec-key">Cushion</span><span class="spec-val">NRC, SB Master, Meilin Green, Meilin Pink</span></div>
+                    <div class="spec-row"><span class="spec-key">Pocket</span><span class="spec-val">Outer Soft / Inner Bold Leather</span></div>
+                    <div class="spec-row"><span class="spec-key">Legs</span><span class="spec-val">6-8 inch · Bold / Round / Lion Leg</span></div>
+                    <div class="spec-row"><span class="spec-key">Balls</span><span class="spec-val">SB PRO, Williams, Xinkang, Aramith</span></div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 1rem; font-style: italic;">* Sheesham Legs available at extra charge (₹10,000/-)</p>
+                </div>
+                <div>
+                    <h3 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--gold); margin-bottom: 1.5rem;">Includes 25+ Accessories</h3>
+                    <div style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.8; letter-spacing: 0.05em;">
+                        4 Billiards Cues · Spider · Scoreboard · Wall Cue Rack · Triangle · Lamp Shades · Gloves + more
                     </div>
-                    <div class="product-card-info">
-                        <div class="product-card-label">10ft × 5ft</div>
-                        <div class="product-card-name">Platinum Series</div>
-                        <a href="https://wa.me/919829247707?text=Enquiry%20for%20Platinum%20Series%20Snooker%20Table"
-                            target="_blank" class="product-card-cta">Enquire Now →</a>
-                    </div>
-                    <div class="product-card-tag">Snooker</div>
                 </div>
             </div>
         </div>
@@ -2015,12 +2080,10 @@
                     <div
                         style="font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin:.5rem 0 1.5rem;">
                         8ft × 4ft</div>
-                    <div class="spec-row"><span class="spec-key">Slate</span><span class="spec-val">Italian / Banglori /
-                            Indian</span></div>
-                    <div class="spec-row"><span class="spec-key">Cloth</span><span class="spec-val">Super Pool / Wiraka
-                            777</span></div>
-                    <div class="spec-row"><span class="spec-key">Cushion</span><span class="spec-val">JB Champ / Melin /
-                            Superior</span></div>
+                    <div class="spec-row"><span class="spec-key">Slate</span><span class="spec-val">Indian</span></div>
+                    <div class="spec-row"><span class="spec-key">Cloth</span><span class="spec-val">777, W777</span></div>
+                    <div class="spec-row"><span class="spec-key">Colours</span><span class="spec-val">Green, Blue, Black, Red</span></div>
+                    <div class="spec-row"><span class="spec-key">Cushion</span><span class="spec-val">SB Pro, Meilin</span></div>
                     <div class="spec-row"><span class="spec-key">Legs</span><span class="spec-val">6–8 inch CUT
                             styles</span></div>
                     <a href="https://wa.me/919829247707?text=Enquiry%20for%20Indian%20Pool%20Table%208x4"
@@ -2032,11 +2095,9 @@
                         American Pool</div>
                     <div
                         style="font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin:.5rem 0 1.5rem;">
-                        9ft × 4.5ft — Auto Ball Collection</div>
-                    <div class="spec-row"><span class="spec-key">Slate</span><span class="spec-val">Italian / Banglori /
-                            Indian</span></div>
-                    <div class="spec-row"><span class="spec-key">Cloth</span><span class="spec-val">Super Pool / Wiraka
-                            777</span></div>
+                        9ft × 4.5ft - Auto Ball Collection</div>
+                    <div class="spec-row"><span class="spec-key">Slate</span><span class="spec-val">Indian and Imported</span></div>
+                    <div class="spec-row"><span class="spec-key">Cloth</span><span class="spec-val">777, W777</span></div>
                     <div class="spec-row"><span class="spec-key">Special</span><span class="spec-val">100% Imported
                             Components</span></div>
                     <div class="spec-row"><span class="spec-key">System</span><span class="spec-val">Auto Ball
@@ -2056,6 +2117,9 @@
                     </div>
                     <div class="product-card-info">
                         <div class="product-card-name">SB 4 Legs</div>
+                        <div class="product-card-specs" style="font-size: 0.8rem; color: var(--text-muted); margin: 0.5rem 0; line-height: 1.4;">
+                            With 777 Chinese cloth, premium wood finish, and Upper Pockets, built for smooth play.
+                        </div>
                         <div class="product-card-cta">Enquire →</div>
                     </div>
                     <div class="product-card-tag">Pool</div>
@@ -2088,6 +2152,54 @@
                     </div>
                     <div class="product-card-tag">Pool · Premium</div>
                 </div>
+                <div class="product-card"
+                    onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20SB%20Regal%20Pool%20Table','_blank')"
+                    style="cursor:pointer">
+                    <div
+                        style="background:#1c3525;width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;flex-direction:column;">
+                        <div style="font-family:'Bebas Neue';font-size:3rem;color:var(--gold)">SB REGAL</div>
+                        <div style="font-size:.75rem;letter-spacing:.2em;color:var(--text-muted)">POOL TABLE</div>
+                    </div>
+                    <div class="product-card-info">
+                        <div class="product-card-name">SB Regal</div>
+                        <div class="product-card-specs" style="font-size: 0.8rem; color: var(--text-muted); margin: 0.5rem 0; line-height: 1.4;">
+                            High-speed Wiraka 777 cloth, premium wood finish, and bold inner pockets, built for smooth play and professional performance.
+                        </div>
+                        <div class="product-card-cta">Enquire →</div>
+                    </div>
+                    <div class="product-card-tag">Pool</div>
+                </div>
+                <div class="product-card"
+                    onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20SB%20Regal%20Pro%20Pool%20Table','_blank')"
+                    style="cursor:pointer">
+                    <div
+                        style="background:#14281c;width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;flex-direction:column;">
+                        <div style="font-family:'Bebas Neue';font-size:3rem;color:var(--gold)">REGAL PRO</div>
+                        <div style="font-size:.75rem;letter-spacing:.2em;color:var(--text-muted)">POOL TABLE</div>
+                    </div>
+                    <div class="product-card-info">
+                        <div class="product-card-name">SB Regal Pro</div>
+                        <div class="product-card-specs" style="font-size: 0.8rem; color: var(--text-muted); margin: 0.5rem 0; line-height: 1.4;">
+                            High-speed Wiraka 777 cloth, premium Matt laminated wood finish, and bold inner pockets, built for smooth play and professional performance.
+                        </div>
+                        <div class="product-card-cta">Enquire →</div>
+                    </div>
+                    <div class="product-card-tag">Pool · Professional</div>
+                </div>
+                <div class="product-card"
+                    onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20SB%20Titan%20Pool%20Table','_blank')"
+                    style="cursor:pointer">
+                    <div
+                        style="background:#0c1b12;width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;flex-direction:column;">
+                        <div style="font-family:'Bebas Neue';font-size:3rem;color:var(--gold)">SB TITAN</div>
+                        <div style="font-size:.75rem;letter-spacing:.2em;color:var(--text-muted)">POOL TABLE</div>
+                    </div>
+                    <div class="product-card-info">
+                        <div class="product-card-name">SB Titan</div>
+                        <div class="product-card-cta">Enquire →</div>
+                    </div>
+                    <div class="product-card-tag">Pool · Heavy Duty</div>
+                </div>
             </div>
             <div
                 style="margin-top:1.5rem;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.15);padding:1.5rem;display:flex;gap:2rem;align-items:center;flex-wrap:wrap;">
@@ -2107,7 +2219,7 @@
                 <div
                     style="font-family:'Cormorant Garamond';font-size:1.2rem;color:var(--cream);line-height:1.6;font-style:italic;">
                     Affiliated by <strong style="color:var(--gold)">FSIF</strong> and <strong
-                        style="color:var(--gold)">ITSF</strong> · Boot Boy Foosball Tables — India 500 Quality Leader
+                        style="color:var(--gold)">ITSF</strong> · Boot Boy Foosball Tables - India 500 Quality Leader
                     Award · Best Brand 2020</div>
             </div>
             <div class="foosball-grid">
@@ -2225,7 +2337,7 @@
         <div class="product-panel" id="panel-accessories">
             <div
                 style="margin-bottom:2rem;font-family:'Cormorant Garamond';font-size:1.2rem;color:rgba(245,240,232,.75);max-width:600px;">
-                Everything you need to play your best game — from championship-grade ball sets to precision cues,
+                Everything you need to play your best game - from championship-grade ball sets to precision cues,
                 elegant cue racks, and fine-tuned accessories.</div>
             <div class="accessories-grid">
                 <div class="accessory-item"
@@ -2274,9 +2386,14 @@
                     <div class="accessory-name">Table Covers</div>
                 </div>
                 <div class="accessory-item"
-                    onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20Gloves','_blank')">
+                    onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20Billiard%20Gloves','_blank')">
                     <div class="accessory-icon">🧤</div>
                     <div class="accessory-name">Playing Gloves</div>
+                </div>
+                <div class="accessory-item"
+                    onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20Billiard%20Clothes','_blank')">
+                    <div class="accessory-icon">👕</div>
+                    <div class="accessory-name">Clothes*</div>
                 </div>
             </div>
             <div style="margin-top:2.5rem;text-align:center;">
@@ -2295,7 +2412,7 @@
                 <div class="why-number">01</div>
                 <div class="why-title">Rajasthan's Only Premium Manufacturer</div>
                 <div class="why-desc">We are the only company in Rajasthan that manufactures international-standard
-                    billiard tables from scratch. No middlemen — pure craft, pure value.</div>
+                    billiard tables from scratch. No middlemen - pure craft, pure value.</div>
             </div>
             <div class="why-card reveal" style="transition-delay:.2s">
                 <div class="why-number">02</div>
@@ -2312,7 +2429,7 @@
             <div class="why-card reveal" style="transition-delay:.4s">
                 <div class="why-number">04</div>
                 <div class="why-title">Complete Installation & Service</div>
-                <div class="why-desc">We deliver, install, level, and tune your table. And when it needs servicing —
+                <div class="why-desc">We deliver, install, level, and tune your table. And when it needs servicing -
                     we're just a call away. We also repair existing tables.</div>
             </div>
             <div class="why-card reveal" style="transition-delay:.5s">
@@ -2325,7 +2442,7 @@
                 <div class="why-number">06</div>
                 <div class="why-title">Trusted by Iconic Brands</div>
                 <div class="why-desc">Manipal University, Ananta Hotels & Resorts, Umed Club, Raffles Jaipur, Kedia
-                    Builders — our tables grace the most prestigious spaces.</div>
+                    Builders - our tables grace the most prestigious spaces.</div>
             </div>
         </div>
     </section>
@@ -2338,7 +2455,7 @@
                 </div>
                 <h2 class="gym-title">Singh <em>Fitness</em><br>Gym Line</h2>
                 <p class="gym-desc">The same precision. The same craftsmanship. Now applied to professional-grade gym
-                    and fitness equipment — manufactured right here in Jaipur.</p>
+                    and fitness equipment - manufactured right here in Jaipur.</p>
                 <div class="gym-features">
                     <div class="gym-feature">Commercial Grade Builds</div>
                     <div class="gym-feature">Custom Club Installations</div>
@@ -2390,7 +2507,7 @@
                 <div class="client-sep">◆</div>
                 <div class="client-logo">Manglam BDL</div>
                 <div class="client-sep">◆</div>
-                <div class="client-logo">Akshat — A Way of Life</div>
+                <div class="client-logo">Akshat - A Way of Life</div>
                 <div class="client-sep">◆</div>
                 <div class="client-logo">Raffles Jaipur</div>
                 <div class="client-sep">◆</div>
@@ -2409,7 +2526,7 @@
                 <div class="client-sep">◆</div>
                 <div class="client-logo">Manglam BDL</div>
                 <div class="client-sep">◆</div>
-                <div class="client-logo">Akshat — A Way of Life</div>
+                <div class="client-logo">Akshat - A Way of Life</div>
                 <div class="client-sep">◆</div>
                 <div class="client-logo">Raffles Jaipur</div>
                 <div class="client-sep">◆</div>
@@ -2486,7 +2603,7 @@
             <div class="contact-wa-big reveal-right">
                 <div
                     style="font-family:'Cormorant Garamond';font-size:1.3rem;font-style:italic;color:rgba(245,240,232,.7);margin-bottom:1rem;">
-                    The fastest way to reach us — and get a quote — is on WhatsApp.</div>
+                    The fastest way to reach us - and get a quote - is on WhatsApp.</div>
                 <a href="https://wa.me/919829247707?text=Hi%20Singh%20Billiards!%20I%20would%20like%20to%20enquire%20about%20your%20products."
                     target="_blank" class="wa-btn-big">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
@@ -2497,6 +2614,9 @@
                     </svg>
                     Chat with Us on WhatsApp
                 </a>
+                <div style="margin-top:2rem; width:100%; height:250px; border:1px solid rgba(201,168,76,.3);">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14232.842795328405!2d75.82365285!3d26.89684725!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396db6eb17e88c03%3A0xe5cdcdb015b6d764!2sRaja%20Park%2C%20Jaipur%2C%20Rajasthan%20302004!5e0!3m2!1sen!2sin!4v1714041123456!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
                 <a href="https://wa.me/919829247707?text=I'd%20like%20to%20request%20a%20product%20quote"
                     target="_blank" class="wa-btn-big" style="background:#1a4a2e;margin-top:.5rem;">
                     📋 Request a Custom Quote
@@ -2512,9 +2632,10 @@
 
     <!-- FOOTER -->
     <footer>
-        <div class="footer-logo">Singh <span>Billiards</span> <span
-                style="font-size:.85rem;color:var(--text-muted);font-family:'Jost';font-weight:300;letter-spacing:.1em">·
-                Since 1999</span></div>
+        <div class="footer-logo">
+            <img src="images/logo.png" alt="Singh Billiards" style="height: 60px; width: auto; vertical-align: middle;"> 
+            <span style="font-size:.85rem;color:var(--text-muted);font-family:'Jost';font-weight:300;letter-spacing:.1em;display:block;margin-top:10px;">· Since 1999</span>
+        </div>
         <div class="footer-copy">
             © 2025 Singh Billiards and Sports, Jaipur. All rights reserved.<br>
             <span style="font-size: .8rem; color: var(--text-muted); margin-top: 0.5rem; display: block;">Developed by
@@ -2559,7 +2680,7 @@
             el.addEventListener('mouseleave', () => { cursor.classList.remove('hover'); ring.classList.remove('hover'); });
         });
 
-        // ========== 3D INTRO — Three.js ==========
+        // ========== 3D INTRO - Three.js ==========
         (function () {
             const overlay = document.getElementById('intro-overlay');
             const brandEl = document.querySelector('.intro-brand');
@@ -2730,7 +2851,7 @@
                     const dt = Math.min(clock.getDelta(), 0.05);
                     elapsed += dt;
 
-                    // HARD CLAMP — runs every frame
+                    // HARD CLAMP - runs every frame
                     const BALL_X = ball.position.x;
                     const CONTACT_X = BALL_X - 0.22 - 1.6;
                     if (cueGroup.position.x + 1.6 > BALL_X - 0.22) {
@@ -2829,6 +2950,16 @@
                 p.classList.toggle('active', p.id === 'panel-' + name);
             });
             document.getElementById('products').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function switchSeries(name) {
+            document.querySelectorAll('.sub-tab-btn').forEach((b, i) => {
+                const series = ['gold', 'pro', 'platinum'];
+                b.classList.toggle('active', series[i] === name);
+            });
+            document.querySelectorAll('.series-panel').forEach(p => {
+                p.classList.toggle('active', p.id === 'series-' + name);
+            });
         }
 
         // ========== MOBILE NAV ==========
