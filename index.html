@@ -1742,7 +1742,13 @@
     <div id="intro-overlay">
         <canvas id="intro-canvas"></canvas>
         <div class="intro-brand">
-            <img src="images/logo.png" alt="Logo" style="display:block; margin:0 auto 1.5rem; height:80px; width:auto; filter: drop-shadow(0 0 15px rgba(201,168,76,0.4));">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" style="display:block;margin:0 auto 1.5rem;height:80px;width:80px;filter:drop-shadow(0 0 15px rgba(201,168,76,0.4));">
+              <circle cx="40" cy="40" r="38" fill="none" stroke="#c9a84c" stroke-width="2"/>
+              <text x="40" y="34" text-anchor="middle" font-family="Bebas Neue,serif" font-size="16" fill="#c9a84c" letter-spacing="2">SINGH</text>
+              <text x="40" y="52" text-anchor="middle" font-family="Bebas Neue,serif" font-size="11" fill="#c9a84c" letter-spacing="3">BILLIARDS</text>
+              <line x1="18" y1="58" x2="62" y2="58" stroke="#c9a84c" stroke-width="1" opacity="0.5"/>
+              <text x="40" y="68" text-anchor="middle" font-family="Jost,sans-serif" font-size="7" fill="#c9a84c" letter-spacing="2" opacity="0.7">EST. 1999</text>
+            </svg>
             SINGH <span>BILLIARDS</span>
         </div>
         <button class="intro-skip" onclick="skipIntro()">Skip ›</button>
@@ -1762,7 +1768,15 @@
 
     <!-- NAV -->
     <nav id="navbar">
-        <a class="nav-logo" href="#hero"><img src="images/logo.png" alt="Singh Billiards" style="height: 60px; width: auto; vertical-align: middle;"></a>
+        <a class="nav-logo" href="#hero" style="display:flex;align-items:center;gap:0.6rem;text-decoration:none;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" style="height:44px;width:44px;flex-shrink:0;">
+              <circle cx="30" cy="30" r="28" fill="none" stroke="#c9a84c" stroke-width="1.5"/>
+              <text x="30" y="25" text-anchor="middle" font-family="Bebas Neue,serif" font-size="12" fill="#c9a84c" letter-spacing="1">SINGH</text>
+              <text x="30" y="38" text-anchor="middle" font-family="Bebas Neue,serif" font-size="8" fill="#c9a84c" letter-spacing="2">BILLIARDS</text>
+              <text x="30" y="48" text-anchor="middle" font-family="Jost,sans-serif" font-size="5" fill="#c9a84c" letter-spacing="1" opacity="0.7">EST. 1999</text>
+            </svg>
+            <span style="font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;color:#f5f0e8;letter-spacing:0.05em;">Singh <em style="color:#c9a84c;font-style:italic;">Billiards</em></span>
+        </a>
         <ul class="nav-links">
             <li><a href="#about">About</a></li>
             <li class="dropdown">
@@ -1958,8 +1972,11 @@
                 <div class="products-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
                     <!-- SB V8 -->
                     <div class="product-card">
-                        <div class="product-img-container" style="background:#0d1a12; width:100%; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center;">
-                            <img src="images/snooker/sb_v8.png" alt="SB V8 Snooker Table" style="width:100%; height:100%; object-fit:cover;">
+                        <div style="background:#0d1a12;width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;flex-direction:column;position:relative;overflow:hidden;">
+                            <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,#1a3520 0%,#0d1a12 70%);"></div>
+                            <div style="position:relative;font-family:'Bebas Neue';font-size:3.5rem;color:var(--gold);letter-spacing:.05em;line-height:1;">SB V8</div>
+                            <div style="position:relative;font-size:.7rem;letter-spacing:.25em;color:var(--text-muted);text-transform:uppercase;margin-top:.5rem;">Snooker Table</div>
+                            <div style="position:relative;margin-top:1rem;width:60px;height:1px;background:linear-gradient(90deg,transparent,#c9a84c,transparent);"></div>
                         </div>
                         <div class="product-card-info">
                             <div class="product-card-label">Bangalore Slate · Elite</div>
@@ -1977,8 +1994,11 @@
 
                     <!-- SB V10 -->
                     <div class="product-card">
-                        <div class="product-img-container" style="background:#0d1a12; width:100%; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center;">
-                            <img src="images/snooker/sb_v10.png" alt="SB V10 Snooker Table" style="width:100%; height:100%; object-fit:cover;">
+                        <div style="background:#0d1a12;width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;flex-direction:column;position:relative;overflow:hidden;">
+                            <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,#1a3520 0%,#0d1a12 70%);"></div>
+                            <div style="position:relative;font-family:'Bebas Neue';font-size:3.5rem;color:var(--gold);letter-spacing:.05em;line-height:1;">SB V10</div>
+                            <div style="position:relative;font-size:.7rem;letter-spacing:.25em;color:var(--text-muted);text-transform:uppercase;margin-top:.5rem;">Snooker Table</div>
+                            <div style="position:relative;margin-top:1rem;width:60px;height:1px;background:linear-gradient(90deg,transparent,#c9a84c,transparent);"></div>
                         </div>
                         <div class="product-card-info">
                             <div class="product-card-label">Imported Slate · Professional</div>
@@ -1996,8 +2016,11 @@
 
                     <!-- SB V12 -->
                     <div class="product-card">
-                        <div class="product-img-container" style="background:#0d1a12; width:100%; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center;">
-                            <img src="images/snooker/sb_v12.png" alt="SB V12 Snooker Table" style="width:100%; height:100%; object-fit:cover;">
+                        <div style="background:#0d1a12;width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;flex-direction:column;position:relative;overflow:hidden;">
+                            <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,#1a3520 0%,#0d1a12 70%);"></div>
+                            <div style="position:relative;font-family:'Bebas Neue';font-size:3.5rem;color:var(--gold);letter-spacing:.05em;line-height:1;">SB V12</div>
+                            <div style="position:relative;font-size:.7rem;letter-spacing:.25em;color:var(--text-muted);text-transform:uppercase;margin-top:.5rem;">Snooker Table</div>
+                            <div style="position:relative;margin-top:1rem;width:60px;height:1px;background:linear-gradient(90deg,transparent,#c9a84c,transparent);"></div>
                         </div>
                         <div class="product-card-info">
                             <div class="product-card-label">Imported Slate · Premium</div>
@@ -2015,8 +2038,11 @@
 
                     <!-- SB V16 -->
                     <div class="product-card">
-                        <div class="product-img-container" style="background:#0d1a12; width:100%; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center;">
-                            <img src="images/snooker/sb_v16.png" alt="SB V16 Snooker Table" style="width:100%; height:100%; object-fit:cover;">
+                        <div style="background:#0d1a12;width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;flex-direction:column;position:relative;overflow:hidden;">
+                            <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,#1a3520 0%,#0d1a12 70%);"></div>
+                            <div style="position:relative;font-family:'Bebas Neue';font-size:3.5rem;color:var(--gold);letter-spacing:.05em;line-height:1;">SB V16</div>
+                            <div style="position:relative;font-size:.7rem;letter-spacing:.25em;color:var(--text-muted);text-transform:uppercase;margin-top:.5rem;">Snooker Table</div>
+                            <div style="position:relative;margin-top:1rem;width:60px;height:1px;background:linear-gradient(90deg,transparent,#c9a84c,transparent);"></div>
                         </div>
                         <div class="product-card-info">
                             <div class="product-card-label">Imported Italian Slate · Tournament</div>
@@ -2633,7 +2659,12 @@
     <!-- FOOTER -->
     <footer>
         <div class="footer-logo">
-            <img src="images/logo.png" alt="Singh Billiards" style="height: 60px; width: auto; vertical-align: middle;"> 
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" style="height:60px;width:60px;vertical-align:middle;filter:drop-shadow(0 0 10px rgba(201,168,76,0.3));">
+              <circle cx="30" cy="30" r="28" fill="none" stroke="#c9a84c" stroke-width="1.5"/>
+              <text x="30" y="25" text-anchor="middle" font-family="Bebas Neue,serif" font-size="12" fill="#c9a84c" letter-spacing="1">SINGH</text>
+              <text x="30" y="38" text-anchor="middle" font-family="Bebas Neue,serif" font-size="8" fill="#c9a84c" letter-spacing="2">BILLIARDS</text>
+              <text x="30" y="48" text-anchor="middle" font-family="Jost,sans-serif" font-size="5" fill="#c9a84c" letter-spacing="1" opacity="0.7">EST. 1999</text>
+            </svg>
             <span style="font-size:.85rem;color:var(--text-muted);font-family:'Jost';font-weight:300;letter-spacing:.1em;display:block;margin-top:10px;">· Since 1999</span>
         </div>
         <div class="footer-copy">
