@@ -1254,15 +1254,24 @@
             mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
         }
 
-        .clients-track {
+        .clients-track-left {
             display: flex;
             gap: 4rem;
             align-items: center;
-            animation: marquee 25s linear infinite;
+            animation: marquee-left 60s linear infinite;
             width: max-content;
         }
 
-        .clients-track:hover {
+        .clients-track-right {
+            display: flex;
+            gap: 4rem;
+            align-items: center;
+            animation: marquee-right 60s linear infinite;
+            width: max-content;
+            margin-top: 3rem;
+        }
+
+        .clients-track-left:hover, .clients-track-right:hover {
             animation-play-state: paused;
         }
 
@@ -1274,12 +1283,27 @@
             text-transform: uppercase;
             color: rgba(245, 240, 232, .35);
             white-space: nowrap;
-            transition: color .3s;
+            transition: color .3s, transform 0.3s;
             cursor: default;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .client-logo svg {
+            height: 45px;
+            width: auto;
+            fill: rgba(245, 240, 232, 0.4);
+            transition: fill 0.3s ease;
         }
 
         .client-logo:hover {
             color: var(--gold);
+            transform: scale(1.05);
+        }
+
+        .client-logo:hover svg {
+            fill: var(--gold);
         }
 
         .client-sep {
@@ -1287,13 +1311,23 @@
             font-size: 1.5rem;
         }
 
-        @keyframes marquee {
+        @keyframes marquee-left {
             from {
                 transform: translateX(0);
             }
 
             to {
                 transform: translateX(-50%);
+            }
+        }
+
+        @keyframes marquee-right {
+            from {
+                transform: translateX(-50%);
+            }
+
+            to {
+                transform: translateX(0);
             }
         }
 
@@ -2494,43 +2528,125 @@
         <div class="section-label reveal">Trusted By</div>
         <h2 class="section-title reveal">Our <em>Esteemed</em><br>Clients</h2>
         <div class="clients-marquee">
-            <div class="clients-track">
-                <div class="client-logo">Manipal University Jaipur</div>
+            <!-- Top Track (Moves Left) -->
+            <div class="clients-track-left">
+                <!-- Set 1 -->
+                <div class="client-logo">
+                    <svg viewBox="0 0 200 40"><text x="0" y="28" font-family="'Cormorant Garamond', serif" font-size="24" font-weight="bold">RAFFLES JAIPUR</text></svg>
+                </div>
                 <div class="client-sep">◆</div>
-                <div class="client-logo">Ananta Hotels & Resorts</div>
+                <div class="client-logo">
+                    <svg viewBox="0 0 150 40"><text x="0" y="28" font-family="Arial, sans-serif" font-size="20" font-weight="bold" letter-spacing="2">VIRASAT</text></svg>
+                </div>
                 <div class="client-sep">◆</div>
-                <div class="client-logo">Umed Club</div>
+                <div class="client-logo">
+                    <svg viewBox="0 0 250 40"><text x="0" y="28" font-family="Georgia, serif" font-size="18">MANIPAL UNIVERSITY JAIPUR</text></svg>
+                </div>
                 <div class="client-sep">◆</div>
-                <div class="client-logo">Kedia Builders & Colonizers</div>
+                <div class="client-logo">
+                    <svg viewBox="0 0 250 40"><text x="0" y="28" font-family="'Jost', sans-serif" font-size="16" letter-spacing="1">ANANTA HOTELS & RESORTS</text></svg>
+                </div>
                 <div class="client-sep">◆</div>
-                <div class="client-logo">Shubhashish Homes</div>
+                <div class="client-logo">
+                    <svg viewBox="0 0 160 40"><text x="0" y="28" font-family="'Bebas Neue', sans-serif" font-size="26">UMED CLUB</text></svg>
+                </div>
                 <div class="client-sep">◆</div>
-                <div class="client-logo">Manglam BDL</div>
+                <!-- Duplicate Set 1 -->
+                <div class="client-logo">
+                    <svg viewBox="0 0 200 40"><text x="0" y="28" font-family="'Cormorant Garamond', serif" font-size="24" font-weight="bold">RAFFLES JAIPUR</text></svg>
+                </div>
                 <div class="client-sep">◆</div>
-                <div class="client-logo">Akshat - A Way of Life</div>
+                <div class="client-logo">
+                    <svg viewBox="0 0 150 40"><text x="0" y="28" font-family="Arial, sans-serif" font-size="20" font-weight="bold" letter-spacing="2">VIRASAT</text></svg>
+                </div>
                 <div class="client-sep">◆</div>
-                <div class="client-logo">Raffles Jaipur</div>
+                <div class="client-logo">
+                    <svg viewBox="0 0 250 40"><text x="0" y="28" font-family="Georgia, serif" font-size="18">MANIPAL UNIVERSITY JAIPUR</text></svg>
+                </div>
                 <div class="client-sep">◆</div>
-                <div class="client-logo">Virasat</div>
+                <div class="client-logo">
+                    <svg viewBox="0 0 250 40"><text x="0" y="28" font-family="'Jost', sans-serif" font-size="16" letter-spacing="1">ANANTA HOTELS & RESORTS</text></svg>
+                </div>
                 <div class="client-sep">◆</div>
-                <!-- duplicate -->
-                <div class="client-logo">Manipal University Jaipur</div>
+                <div class="client-logo">
+                    <svg viewBox="0 0 160 40"><text x="0" y="28" font-family="'Bebas Neue', sans-serif" font-size="26">UMED CLUB</text></svg>
+                </div>
                 <div class="client-sep">◆</div>
-                <div class="client-logo">Ananta Hotels & Resorts</div>
+                <!-- Duplicate Set 1 again for smoother scroll -->
+                <div class="client-logo">
+                    <svg viewBox="0 0 200 40"><text x="0" y="28" font-family="'Cormorant Garamond', serif" font-size="24" font-weight="bold">RAFFLES JAIPUR</text></svg>
+                </div>
                 <div class="client-sep">◆</div>
-                <div class="client-logo">Umed Club</div>
+                <div class="client-logo">
+                    <svg viewBox="0 0 150 40"><text x="0" y="28" font-family="Arial, sans-serif" font-size="20" font-weight="bold" letter-spacing="2">VIRASAT</text></svg>
+                </div>
                 <div class="client-sep">◆</div>
-                <div class="client-logo">Kedia Builders & Colonizers</div>
+                <div class="client-logo">
+                    <svg viewBox="0 0 250 40"><text x="0" y="28" font-family="Georgia, serif" font-size="18">MANIPAL UNIVERSITY JAIPUR</text></svg>
+                </div>
                 <div class="client-sep">◆</div>
-                <div class="client-logo">Shubhashish Homes</div>
+                <div class="client-logo">
+                    <svg viewBox="0 0 250 40"><text x="0" y="28" font-family="'Jost', sans-serif" font-size="16" letter-spacing="1">ANANTA HOTELS & RESORTS</text></svg>
+                </div>
                 <div class="client-sep">◆</div>
-                <div class="client-logo">Manglam BDL</div>
+                <div class="client-logo">
+                    <svg viewBox="0 0 160 40"><text x="0" y="28" font-family="'Bebas Neue', sans-serif" font-size="26">UMED CLUB</text></svg>
+                </div>
                 <div class="client-sep">◆</div>
-                <div class="client-logo">Akshat - A Way of Life</div>
+            </div>
+
+            <!-- Bottom Track (Moves Right) -->
+            <div class="clients-track-right">
+                <!-- Set 2 -->
+                <div class="client-logo">
+                    <svg viewBox="0 0 240 40"><text x="0" y="28" font-family="'Jost', sans-serif" font-size="16" font-weight="600">KEDIA BUILDERS & COLONIZERS</text></svg>
+                </div>
                 <div class="client-sep">◆</div>
-                <div class="client-logo">Raffles Jaipur</div>
+                <div class="client-logo">
+                    <svg viewBox="0 0 200 40"><text x="0" y="28" font-family="'Cormorant Garamond', serif" font-size="20" font-weight="bold">SHUBHASHISH HOMES</text></svg>
+                </div>
                 <div class="client-sep">◆</div>
-                <div class="client-logo">Virasat</div>
+                <div class="client-logo">
+                    <svg viewBox="0 0 180 40"><text x="0" y="28" font-family="Arial, sans-serif" font-size="20" font-weight="bold">MANGLAM BDL</text></svg>
+                </div>
+                <div class="client-sep">◆</div>
+                <div class="client-logo">
+                    <svg viewBox="0 0 200 40"><text x="0" y="28" font-family="'Jost', sans-serif" font-size="18" letter-spacing="1">AKSHAT - A Way of Life</text></svg>
+                </div>
+                <div class="client-sep">◆</div>
+                <!-- Duplicate Set 2 -->
+                <div class="client-logo">
+                    <svg viewBox="0 0 240 40"><text x="0" y="28" font-family="'Jost', sans-serif" font-size="16" font-weight="600">KEDIA BUILDERS & COLONIZERS</text></svg>
+                </div>
+                <div class="client-sep">◆</div>
+                <div class="client-logo">
+                    <svg viewBox="0 0 200 40"><text x="0" y="28" font-family="'Cormorant Garamond', serif" font-size="20" font-weight="bold">SHUBHASHISH HOMES</text></svg>
+                </div>
+                <div class="client-sep">◆</div>
+                <div class="client-logo">
+                    <svg viewBox="0 0 180 40"><text x="0" y="28" font-family="Arial, sans-serif" font-size="20" font-weight="bold">MANGLAM BDL</text></svg>
+                </div>
+                <div class="client-sep">◆</div>
+                <div class="client-logo">
+                    <svg viewBox="0 0 200 40"><text x="0" y="28" font-family="'Jost', sans-serif" font-size="18" letter-spacing="1">AKSHAT - A Way of Life</text></svg>
+                </div>
+                <div class="client-sep">◆</div>
+                <!-- Duplicate Set 2 again for smoother scroll -->
+                <div class="client-logo">
+                    <svg viewBox="0 0 240 40"><text x="0" y="28" font-family="'Jost', sans-serif" font-size="16" font-weight="600">KEDIA BUILDERS & COLONIZERS</text></svg>
+                </div>
+                <div class="client-sep">◆</div>
+                <div class="client-logo">
+                    <svg viewBox="0 0 200 40"><text x="0" y="28" font-family="'Cormorant Garamond', serif" font-size="20" font-weight="bold">SHUBHASHISH HOMES</text></svg>
+                </div>
+                <div class="client-sep">◆</div>
+                <div class="client-logo">
+                    <svg viewBox="0 0 180 40"><text x="0" y="28" font-family="Arial, sans-serif" font-size="20" font-weight="bold">MANGLAM BDL</text></svg>
+                </div>
+                <div class="client-sep">◆</div>
+                <div class="client-logo">
+                    <svg viewBox="0 0 200 40"><text x="0" y="28" font-family="'Jost', sans-serif" font-size="18" letter-spacing="1">AKSHAT - A Way of Life</text></svg>
+                </div>
                 <div class="client-sep">◆</div>
             </div>
         </div>
