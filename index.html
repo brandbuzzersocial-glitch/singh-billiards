@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Singh Billiards - Since 1999 | Jaipur</title>
+    <link rel="icon" type="image/png" href="images/logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -937,17 +938,18 @@
         /* ACCESSORIES GRID */
         .accessories-grid {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 1.5rem;
             margin-top: 2rem;
         }
 
         .accessory-item {
             background: var(--charcoal);
-            padding: 1.5rem 1rem;
             text-align: center;
             transition: background .3s, transform .3s;
             cursor: pointer;
+            overflow: hidden;
+            position: relative;
         }
 
         .accessory-item:hover {
@@ -955,16 +957,33 @@
             transform: translateY(-4px);
         }
 
-        .accessory-icon {
-            font-size: 2rem;
-            margin-bottom: .8rem;
+        .accessory-item:hover .accessory-img-wrap img {
+            transform: scale(1.06);
+        }
+
+        .accessory-img-wrap {
+            width: 100%;
+            aspect-ratio: 1/1;
+            overflow: hidden;
+            background: #0d1a12;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .accessory-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .4s ease;
         }
 
         .accessory-name {
-            font-size: .78rem;
+            font-size: .72rem;
             letter-spacing: .1em;
             text-transform: uppercase;
             color: var(--text-muted);
+            padding: .75rem .5rem;
         }
 
         /* FOOSBALL */
@@ -1254,24 +1273,15 @@
             mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
         }
 
-        .clients-track-left {
+        .clients-track {
             display: flex;
-            gap: 4rem;
+            gap: 5rem;
             align-items: center;
-            animation: marquee-left 60s linear infinite;
+            animation: marquee-left 40s linear infinite;
             width: max-content;
         }
 
-        .clients-track-right {
-            display: flex;
-            gap: 4rem;
-            align-items: center;
-            animation: marquee-right 60s linear infinite;
-            width: max-content;
-            margin-top: 3rem;
-        }
-
-        .clients-track-left:hover, .clients-track-right:hover {
+        .clients-track:hover {
             animation-play-state: paused;
         }
 
@@ -1291,15 +1301,15 @@
         }
         
         .client-logo img {
-            height: 40px;
+            height: 280px;
             width: auto;
             object-fit: contain;
-            filter: brightness(0) invert(1) opacity(0.5);
-            transition: filter 0.3s ease, transform 0.3s ease;
+            filter: brightness(0) invert(1) opacity(0.85);
+            transition: opacity 0.3s ease, transform 0.3s ease;
         }
 
         .client-logo:hover img {
-            filter: brightness(0) sepia(1) hue-rotate(10deg) saturate(3) opacity(1);
+            opacity: 1;
             transform: scale(1.05);
         }
 
@@ -1986,6 +1996,17 @@
 
             <!-- GOLD SERIES -->
             <div class="series-panel active" id="series-gold">
+                <!-- Gold Series Featured Banner -->
+                <div style="width:100%; margin-bottom:2.5rem; border-radius:4px; overflow:hidden; position:relative; aspect-ratio:16/7; background:#0d1a12;">
+                    <img src="images/snooker/sb_gold_series.png" alt="Gold Series Snooker Tables" style="width:100%; height:100%; object-fit:cover;">
+                    <div style="position:absolute; inset:0; background:linear-gradient(90deg,rgba(0,0,0,.55) 0%,transparent 60%); display:flex; align-items:center; padding:3rem;">
+                        <div>
+                            <div style="font-size:.7rem; letter-spacing:.25em; text-transform:uppercase; color:var(--gold); margin-bottom:.6rem;">Singh Billiards</div>
+                            <div style="font-family:'Bebas Neue'; font-size:3rem; color:#fff; line-height:1;">Gold Series</div>
+                            <div style="font-size:.85rem; color:rgba(255,255,255,.6); margin-top:.6rem;">SB V8 · V10 · V12 · V16</div>
+                        </div>
+                    </div>
+                </div>
                 <div class="products-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
                     <!-- SB V8 -->
                     <div class="product-card">
@@ -2067,17 +2088,69 @@
 
             <!-- PRO SERIES -->
             <div class="series-panel" id="series-pro">
-                <div style="padding:4rem; text-align:center; background:rgba(255,255,255,0.02); border:1px dashed rgba(201,168,76,0.2);">
-                    <div style="font-family:'Bebas Neue'; font-size:2.5rem; color:var(--gold); margin-bottom:1rem;">Pro Series</div>
-                    <p style="color:var(--text-muted);">Professional-grade snooker tables for clubs and tournaments. Models coming soon.</p>
+                <!-- Pro Series Featured Banner -->
+                <div style="width:100%; margin-bottom:2.5rem; border-radius:4px; overflow:hidden; position:relative; aspect-ratio:16/7; background:#0d1a12;">
+                    <img src="images/snooker/sb_pro_series.png" alt="Pro Series Snooker Tables" style="width:100%; height:100%; object-fit:cover;">
+                    <div style="position:absolute; inset:0; background:linear-gradient(90deg,rgba(0,0,0,.55) 0%,transparent 60%); display:flex; align-items:center; padding:3rem;">
+                        <div>
+                            <div style="font-size:.7rem; letter-spacing:.25em; text-transform:uppercase; color:var(--gold); margin-bottom:.6rem;">Singh Billiards</div>
+                            <div style="font-family:'Bebas Neue'; font-size:3rem; color:#fff; line-height:1;">Pro Series</div>
+                            <div style="font-size:.85rem; color:rgba(255,255,255,.6); margin-top:.6rem;">Professional-grade · Club &amp; Tournament</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="products-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+                    <div class="product-card">
+                        <div class="product-img-container" style="background:#0d1a12; width:100%; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center;">
+                            <img src="images/snooker/sb_pro_series.png" alt="SB Pro Series Snooker Table" style="width:100%; height:100%; object-fit:cover;">
+                        </div>
+                        <div class="product-card-info">
+                            <div class="product-card-label">Bangalore Slate · Club Grade</div>
+                            <div class="product-card-name">SB Pro Series</div>
+                            <div class="product-card-specs" style="font-size: 0.8rem; color: var(--text-muted); margin: 0.5rem 0; line-height: 1.4;">
+                                <strong>Cloth:</strong> Spain 32oz / Pns888<br>
+                                <strong>Cushion:</strong> Laminated Steel<br>
+                                <strong>Balls:</strong> Partners Pro Set
+                            </div>
+                            <a href="https://wa.me/919829247707?text=Enquiry%20for%20SB%20Pro%20Series%20Snooker%20Table"
+                                target="_blank" class="product-card-cta">Enquire Now →</a>
+                        </div>
+                        <div class="product-card-tag">Pro Series</div>
+                    </div>
                 </div>
             </div>
 
             <!-- PLATINUM SERIES -->
             <div class="series-panel" id="series-platinum">
-                <div style="padding:4rem; text-align:center; background:rgba(255,255,255,0.02); border:1px dashed rgba(201,168,76,0.2);">
-                    <div style="font-family:'Bebas Neue'; font-size:2.5rem; color:var(--gold); margin-bottom:1rem;">Platinum Series</div>
-                    <p style="color:var(--text-muted);">The ultimate in luxury and precision. Hand-crafted limited edition tables. Models coming soon.</p>
+                <!-- Platinum Series Featured Banner -->
+                <div style="width:100%; margin-bottom:2.5rem; border-radius:4px; overflow:hidden; position:relative; aspect-ratio:16/7; background:#0d1a12;">
+                    <img src="images/snooker/sb_platinum_series.png" alt="Platinum Series Snooker Tables" style="width:100%; height:100%; object-fit:cover;">
+                    <div style="position:absolute; inset:0; background:linear-gradient(90deg,rgba(0,0,0,.55) 0%,transparent 60%); display:flex; align-items:center; padding:3rem;">
+                        <div>
+                            <div style="font-size:.7rem; letter-spacing:.25em; text-transform:uppercase; color:var(--gold); margin-bottom:.6rem;">Singh Billiards</div>
+                            <div style="font-family:'Bebas Neue'; font-size:3rem; color:#fff; line-height:1;">Platinum Series</div>
+                            <div style="font-size:.85rem; color:rgba(255,255,255,.6); margin-top:.6rem;">Luxury · Hand-crafted · Limited Edition</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="products-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+                    <div class="product-card">
+                        <div class="product-img-container" style="background:#0d1a12; width:100%; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center;">
+                            <img src="images/snooker/sb_platinum_series.png" alt="SB Platinum Series Snooker Table" style="width:100%; height:100%; object-fit:cover;">
+                        </div>
+                        <div class="product-card-info">
+                            <div class="product-card-label">Italian Slate · Luxury</div>
+                            <div class="product-card-name">SB Platinum Series</div>
+                            <div class="product-card-specs" style="font-size: 0.8rem; color: var(--text-muted); margin: 0.5rem 0; line-height: 1.4;">
+                                <strong>Cloth:</strong> PNS CLUB+ / Liberwin<br>
+                                <strong>Cushion:</strong> Laminated Steel Premium<br>
+                                <strong>Balls:</strong> Aramith 1G Set
+                            </div>
+                            <a href="https://wa.me/919829247707?text=Enquiry%20for%20SB%20Platinum%20Series%20Snooker%20Table"
+                                target="_blank" class="product-card-cta">Enquire Now →</a>
+                        </div>
+                        <div class="product-card-tag">Platinum Series</div>
+                    </div>
                 </div>
             </div>
 
@@ -2122,6 +2195,9 @@
                         Enquiry →</a>
                 </div>
                 <div style="background:var(--charcoal);padding:2.5rem;">
+                    <div class="product-img-container" style="background:#0d1a12; width:100%; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom: 2rem;">
+                        <img src="images/products/sb_american.png" alt="American Pool Table" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
                     <div style="font-family:'Bebas Neue';font-size:3rem;color:var(--gold);letter-spacing:.05em;">
                         American Pool</div>
                     <div
@@ -2141,10 +2217,8 @@
             <div class="products-grid">
                 <div class="product-card" style="cursor:pointer"
                     onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20SB%204%20Legs%20Pool%20Table','_blank')">
-                    <div
-                        style="background:#1e3b28;width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;flex-direction:column;">
-                        <div style="font-family:'Bebas Neue';font-size:3rem;color:var(--gold)">SB 4 LEGS</div>
-                        <div style="font-size:.75rem;letter-spacing:.2em;color:var(--text-muted)">POOL TABLE</div>
+                    <div class="product-img-container" style="background:#0d1a12; width:100%; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center;">
+                        <img src="images/products/sb_4legs.png" alt="SB 4 Legs Pool Table" style="width:100%; height:100%; object-fit:cover;">
                     </div>
                     <div class="product-card-info">
                         <div class="product-card-name">SB 4 Legs</div>
@@ -2158,10 +2232,8 @@
                 <div class="product-card"
                     onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20SB%206%20Legs%20Pool%20Table','_blank')"
                     style="cursor:pointer">
-                    <div
-                        style="background:#162b1e;width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;flex-direction:column;">
-                        <div style="font-family:'Bebas Neue';font-size:3rem;color:var(--gold)">SB 6 LEGS</div>
-                        <div style="font-size:.75rem;letter-spacing:.2em;color:var(--text-muted)">POOL TABLE</div>
+                    <div class="product-img-container" style="background:#0d1a12; width:100%; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center;">
+                        <img src="images/products/sb_6legs.png" alt="SB 6 Legs Pool Table" style="width:100%; height:100%; object-fit:cover;">
                     </div>
                     <div class="product-card-info">
                         <div class="product-card-name">SB 6 Legs</div>
@@ -2172,10 +2244,8 @@
                 <div class="product-card"
                     onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20SB%20Heritage%20Pool%20Table','_blank')"
                     style="cursor:pointer">
-                    <div
-                        style="background:#0f2218;width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;flex-direction:column;">
-                        <div style="font-family:'Bebas Neue';font-size:3rem;color:var(--gold)">HERITAGE</div>
-                        <div style="font-size:.75rem;letter-spacing:.2em;color:var(--text-muted)">POOL TABLE</div>
+                    <div class="product-img-container" style="background:#0d1a12; width:100%; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center;">
+                        <img src="images/products/sb_heritage.png" alt="SB Heritage Pool Table" style="width:100%; height:100%; object-fit:cover;">
                     </div>
                     <div class="product-card-info">
                         <div class="product-card-name">SB Heritage</div>
@@ -2186,10 +2256,8 @@
                 <div class="product-card"
                     onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20SB%20Regal%20Pool%20Table','_blank')"
                     style="cursor:pointer">
-                    <div
-                        style="background:#1c3525;width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;flex-direction:column;">
-                        <div style="font-family:'Bebas Neue';font-size:3rem;color:var(--gold)">SB REGAL</div>
-                        <div style="font-size:.75rem;letter-spacing:.2em;color:var(--text-muted)">POOL TABLE</div>
+                    <div class="product-img-container" style="background:#0d1a12; width:100%; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center;">
+                        <img src="images/products/sb_regal.png" alt="SB Regal Pool Table" style="width:100%; height:100%; object-fit:cover;">
                     </div>
                     <div class="product-card-info">
                         <div class="product-card-name">SB Regal</div>
@@ -2203,10 +2271,8 @@
                 <div class="product-card"
                     onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20SB%20Regal%20Pro%20Pool%20Table','_blank')"
                     style="cursor:pointer">
-                    <div
-                        style="background:#14281c;width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;flex-direction:column;">
-                        <div style="font-family:'Bebas Neue';font-size:3rem;color:var(--gold)">REGAL PRO</div>
-                        <div style="font-size:.75rem;letter-spacing:.2em;color:var(--text-muted)">POOL TABLE</div>
+                    <div class="product-img-container" style="background:#0d1a12; width:100%; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center;">
+                        <img src="images/products/sb_regal_v2.png" alt="SB Regal Pro Pool Table" style="width:100%; height:100%; object-fit:cover;">
                     </div>
                     <div class="product-card-info">
                         <div class="product-card-name">SB Regal Pro</div>
@@ -2216,6 +2282,36 @@
                         <div class="product-card-cta">Enquire →</div>
                     </div>
                     <div class="product-card-tag">Pool · Professional</div>
+                </div>
+                <div class="product-card"
+                    onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20SB%20Gold%20Pool%20Table','_blank')"
+                    style="cursor:pointer">
+                    <div class="product-img-container" style="background:#0d1a12; width:100%; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center;">
+                        <img src="images/products/sb_gold.png" alt="SB Gold Pool Table" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div class="product-card-info">
+                        <div class="product-card-name">SB Gold</div>
+                        <div class="product-card-specs" style="font-size: 0.8rem; color: var(--text-muted); margin: 0.5rem 0; line-height: 1.4;">
+                            Premium solid wood structure, sleek pocket design, and tournament-grade cloth for an exceptional playing experience.
+                        </div>
+                        <div class="product-card-cta">Enquire →</div>
+                    </div>
+                    <div class="product-card-tag">Pool · Premium</div>
+                </div>
+                <div class="product-card"
+                    onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20SB%20Auto%20Ball%20Collection%20Pool%20Table','_blank')"
+                    style="cursor:pointer">
+                    <div class="product-img-container" style="background:#0d1a12; width:100%; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center;">
+                        <img src="images/products/sb_auto_ball.png" alt="SB Auto Ball Collection Pool Table" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div class="product-card-info">
+                        <div class="product-card-name">SB Auto Ball Collection</div>
+                        <div class="product-card-specs" style="font-size: 0.8rem; color: var(--text-muted); margin: 0.5rem 0; line-height: 1.4;">
+                            Featuring a professional automatic ball return system, premium cushion rubbers, and imported slate beds.
+                        </div>
+                        <div class="product-card-cta">Enquire →</div>
+                    </div>
+                    <div class="product-card-tag">Pool · Automatic</div>
                 </div>
                 <div class="product-card"
                     onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20SB%20Titan%20Pool%20Table','_blank')"
@@ -2253,8 +2349,11 @@
                         style="color:var(--gold)">ITSF</strong> · Boot Boy Foosball Tables - India 500 Quality Leader
                     Award · Best Brand 2020</div>
             </div>
-            <div class="foosball-grid">
+                        <div class="foosball-grid">
                 <div class="foosball-card">
+                    <div class="product-img-container" style="background:#0d1a12; width:100%; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom: 1rem;">
+                        <img src="images/products/foos_bb9009.png" alt="BB 9009 Foosball" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
                     <div class="foosball-model">BB 9009</div>
                     <div class="foosball-size">55″ × 30″ × 34.5″</div>
                     <div class="foosball-use">Best for professional tournaments, cinemas, game zones, bars, hospitals.
@@ -2264,6 +2363,9 @@
                         class="product-card-cta" style="margin-top:1rem">Get Quote →</a>
                 </div>
                 <div class="foosball-card">
+                    <div class="product-img-container" style="background:#0d1a12; width:100%; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom: 1rem;">
+                        <img src="images/products/foos_bb3003.png" alt="BB 3003 Foosball" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
                     <div class="foosball-model">BB 3003</div>
                     <div class="foosball-size">48″ × 24″ × 32.5″</div>
                     <div class="foosball-use">Perfect for home, community clubs, and light commercial use. Compact and
@@ -2273,6 +2375,9 @@
                         class="product-card-cta" style="margin-top:1rem">Get Quote →</a>
                 </div>
                 <div class="foosball-card">
+                    <div class="product-img-container" style="background:#0d1a12; width:100%; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom: 1rem;">
+                        <img src="images/products/foos_bb6006.png" alt="BB 6006 Foosball" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
                     <div class="foosball-model">BB 6006</div>
                     <div class="foosball-size">55″ × 30″ × 34.5″</div>
                     <div class="foosball-use">Tournament-grade premium design. Built for serious competitive play and
@@ -2282,6 +2387,9 @@
                         class="product-card-cta" style="margin-top:1rem">Get Quote →</a>
                 </div>
                 <div class="foosball-card">
+                    <div class="product-img-container" style="background:#0d1a12; width:100%; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom: 1rem;">
+                        <img src="images/products/foos_bb6111.png" alt="BB 6111 Foosball" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
                     <div class="foosball-model">BB 6111</div>
                     <div class="foosball-use">Rustic wood finish for premium interiors. Medium commercial usage,
                         aesthetically stunning.</div>
@@ -2290,142 +2398,321 @@
                         class="product-card-cta" style="margin-top:1rem">Get Quote →</a>
                 </div>
                 <div class="foosball-card">
-                    <div class="foosball-model">BB 7001</div>
-                    <div class="foosball-use">Modern matte black design. Contemporary professional grade for upscale
-                        venues.</div>
-                    <div class="foosball-badge">Contemporary Pro</div>
-                    <a href="https://wa.me/919829247707?text=Enquiry%20for%20Foosball%20BB%207001" target="_blank"
+                    <div class="product-img-container" style="background:#0d1a12; width:100%; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom: 1rem;">
+                        <img src="images/foosball/sb_blue.png" alt="SB Blue Foosball" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div class="foosball-model">SB Blue</div>
+                    <div class="foosball-use">Premium build quality designed for competitive play.</div>
+                    <div class="foosball-badge">Premium</div>
+                    <a href="https://wa.me/919829247707?text=Enquiry%20for%20Foosball%20SB%20Blue" target="_blank"
                         class="product-card-cta" style="margin-top:1rem">Get Quote →</a>
                 </div>
                 <div class="foosball-card">
-                    <div class="foosball-model">SB Blue / Real</div>
-                    <div class="foosball-use">Folding leg design for storage convenience. Ideal for schools, homes, and
-                        casual gaming spaces.</div>
-                    <div class="foosball-badge">Compact / Folding</div>
-                    <a href="https://wa.me/919829247707?text=Enquiry%20for%20Foosball%20SB%20Blue%20or%20Real"
-                        target="_blank" class="product-card-cta" style="margin-top:1rem">Get Quote →</a>
+                    <div class="product-img-container" style="background:#0d1a12; width:100%; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom: 1rem;">
+                        <img src="images/foosball/sb_real.png" alt="SB Real Foosball" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div class="foosball-model">SB Real</div>
+                    <div class="foosball-use">Premium build quality designed for competitive play.</div>
+                    <div class="foosball-badge">Premium</div>
+                    <a href="https://wa.me/919829247707?text=Enquiry%20for%20Foosball%20SB%20Real" target="_blank"
+                        class="product-card-cta" style="margin-top:1rem">Get Quote →</a>
                 </div>
-            </div>
+                <div class="foosball-card">
+                    <div class="product-img-container" style="background:#0d1a12; width:100%; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom: 1rem;">
+                        <img src="images/foosball/sb1001.png" alt="SB 1001 Foosball" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div class="foosball-model">SB 1001</div>
+                    <div class="foosball-use">Premium build quality designed for competitive play.</div>
+                    <div class="foosball-badge">Premium</div>
+                    <a href="https://wa.me/919829247707?text=Enquiry%20for%20Foosball%20SB%201001" target="_blank"
+                        class="product-card-cta" style="margin-top:1rem">Get Quote →</a>
+                </div>
+                <div class="foosball-card">
+                    <div class="product-img-container" style="background:#0d1a12; width:100%; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom: 1rem;">
+                        <img src="images/foosball/sb1002.png" alt="SB 1002 Foosball" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div class="foosball-model">SB 1002</div>
+                    <div class="foosball-use">Premium build quality designed for competitive play.</div>
+                    <div class="foosball-badge">Premium</div>
+                    <a href="https://wa.me/919829247707?text=Enquiry%20for%20Foosball%20SB%201002" target="_blank"
+                        class="product-card-cta" style="margin-top:1rem">Get Quote →</a>
+                </div>
+                <div class="foosball-card">
+                    <div class="product-img-container" style="background:#0d1a12; width:100%; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom: 1rem;">
+                        <img src="images/foosball/sb1003.png" alt="SB 1003 Foosball" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div class="foosball-model">SB 1003</div>
+                    <div class="foosball-use">Premium build quality designed for competitive play.</div>
+                    <div class="foosball-badge">Premium</div>
+                    <a href="https://wa.me/919829247707?text=Enquiry%20for%20Foosball%20SB%201003" target="_blank"
+                        class="product-card-cta" style="margin-top:1rem">Get Quote →</a>
+                </div>
+                <div class="foosball-card">
+                    <div class="product-img-container" style="background:#0d1a12; width:100%; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom: 1rem;">
+                        <img src="images/foosball/sb1004.png" alt="SB 1004 Foosball" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div class="foosball-model">SB 1004</div>
+                    <div class="foosball-use">Premium build quality designed for competitive play.</div>
+                    <div class="foosball-badge">Premium</div>
+                    <a href="https://wa.me/919829247707?text=Enquiry%20for%20Foosball%20SB%201004" target="_blank"
+                        class="product-card-cta" style="margin-top:1rem">Get Quote →</a>
+                </div>
+                <div class="foosball-card">
+                    <div class="product-img-container" style="background:#0d1a12; width:100%; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom: 1rem;">
+                        <img src="images/foosball/sb1005.png" alt="SB 1005 Foosball" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div class="foosball-model">SB 1005</div>
+                    <div class="foosball-use">Premium build quality designed for competitive play.</div>
+                    <div class="foosball-badge">Premium</div>
+                    <a href="https://wa.me/919829247707?text=Enquiry%20for%20Foosball%20SB%201005" target="_blank"
+                        class="product-card-cta" style="margin-top:1rem">Get Quote →</a>
+                </div>
+                <div class="foosball-card">
+                    <div class="product-img-container" style="background:#0d1a12; width:100%; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom: 1rem;">
+                        <img src="images/foosball/sb1006.png" alt="SB 1006 Foosball" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div class="foosball-model">SB 1006</div>
+                    <div class="foosball-use">Premium build quality designed for competitive play.</div>
+                    <div class="foosball-badge">Premium</div>
+                    <a href="https://wa.me/919829247707?text=Enquiry%20for%20Foosball%20SB%201006" target="_blank"
+                        class="product-card-cta" style="margin-top:1rem">Get Quote →</a>
+                </div>
+                <div class="foosball-card">
+                    <div class="product-img-container" style="background:#0d1a12; width:100%; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom: 1rem;">
+                        <img src="images/foosball/sb1007.png" alt="SB 1007 Foosball" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div class="foosball-model">SB 1007</div>
+                    <div class="foosball-use">Premium build quality designed for competitive play.</div>
+                    <div class="foosball-badge">Premium</div>
+                    <a href="https://wa.me/919829247707?text=Enquiry%20for%20Foosball%20SB%201007" target="_blank"
+                        class="product-card-cta" style="margin-top:1rem">Get Quote →</a>
+                </div>
+                <div class="foosball-card">
+                    <div class="product-img-container" style="background:#0d1a12; width:100%; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom: 1rem;">
+                        <img src="images/foosball/sb1008.png" alt="SB 1008 Foosball" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div class="foosball-model">SB 1008</div>
+                    <div class="foosball-use">Premium build quality designed for competitive play.</div>
+                    <div class="foosball-badge">Premium</div>
+                    <a href="https://wa.me/919829247707?text=Enquiry%20for%20Foosball%20SB%201008" target="_blank"
+                        class="product-card-cta" style="margin-top:1rem">Get Quote →</a>
+                </div>
+                <div class="foosball-card">
+                    <div class="product-img-container" style="background:#0d1a12; width:100%; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom: 1rem;">
+                        <img src="images/foosball/sb1009.png" alt="SB 1009 Foosball" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div class="foosball-model">SB 1009</div>
+                    <div class="foosball-use">Premium build quality designed for competitive play.</div>
+                    <div class="foosball-badge">Premium</div>
+                    <a href="https://wa.me/919829247707?text=Enquiry%20for%20Foosball%20SB%201009" target="_blank"
+                        class="product-card-cta" style="margin-top:1rem">Get Quote →</a>
+                </div>
+                <div class="foosball-card">
+                    <div class="product-img-container" style="background:#0d1a12; width:100%; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom: 1rem;">
+                        <img src="images/foosball/sbluxe.png" alt="SB Luxe Foosball" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div class="foosball-model">SB Luxe</div>
+                    <div class="foosball-use">Premium build quality designed for competitive play.</div>
+                    <div class="foosball-badge">Premium</div>
+                    <a href="https://wa.me/919829247707?text=Enquiry%20for%20Foosball%20SB%20Luxe" target="_blank"
+                        class="product-card-cta" style="margin-top:1rem">Get Quote →</a>
+                </div>
+                <div class="foosball-card">
+                    <div class="product-img-container" style="background:#0d1a12; width:100%; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom: 1rem;">
+                        <img src="images/foosball/sb_blackdiamond.png" alt="SB Black Diamond Foosball" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div class="foosball-model">SB Black Diamond</div>
+                    <div class="foosball-use">Premium build quality designed for competitive play.</div>
+                    <div class="foosball-badge">Premium</div>
+                    <a href="https://wa.me/919829247707?text=Enquiry%20for%20Foosball%20SB%20Black%20Diamond" target="_blank"
+                        class="product-card-cta" style="margin-top:1rem">Get Quote →</a>
+                </div>
+            </div></div>
         </div>
 
         <!-- TT & OTHER -->
         <div class="product-panel" id="panel-tt">
             <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:2rem;">
-                <div style="background:var(--charcoal);padding:2.5rem;">
-                    <div style="font-family:'Bebas Neue';font-size:2.5rem;color:var(--gold)">TABLE TENNIS</div>
-                    <div
-                        style="font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin:.5rem 0 1.5rem">
-                        9ft × 5ft</div>
-                    <div class="spec-row"><span class="spec-key">Top</span><span class="spec-val">18mm or 25mm</span>
+                <div class="foosball-card">
+                    <div class="product-img-container" style="background:#0d1a12; width:100%; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom: 1rem;">
+                        <img src="images/tt/sb_tt_tournament.png" alt="SB TT Tournament" style="width:100%; height:100%; object-fit:cover;">
                     </div>
-                    <div class="spec-row"><span class="spec-key">Wheels</span><span class="spec-val">65mm or
-                            100mm</span></div>
-                    <div class="spec-row"><span class="spec-key">Style</span><span class="spec-val">Standard /
-                            Outdoor</span></div>
-                    <a href="https://wa.me/919829247707?text=Enquiry%20for%20TT%20Table" target="_blank"
-                        class="btn-primary" style="margin-top:1.5rem;display:inline-flex;">Enquire →</a>
+                    <div class="foosball-model">SB TT Tournament</div>
+                    <div class="foosball-use">Tournament-grade Table Tennis table. Standard 9ft × 5ft size for competitive and professional play.</div>
+                    <div class="foosball-badge">Professional Grade</div>
+                    <a href="https://wa.me/919829247707?text=Enquiry%20for%20TT%20Table%20Tournament" target="_blank"
+                        class="product-card-cta" style="margin-top:1rem">Get Quote →</a>
                 </div>
-                <div style="background:var(--charcoal);padding:2.5rem;">
-                    <div style="font-family:'Bebas Neue';font-size:2.5rem;color:var(--gold)">CARROM BOARDS</div>
-                    <div
-                        style="font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin:.5rem 0 1.5rem">
-                        Premium Indian Game</div>
-                    <div
-                        style="font-family:'Cormorant Garamond';font-size:1.05rem;line-height:1.6;color:rgba(245,240,232,.7);margin-bottom:1.5rem;">
-                        Tournament-grade carrom boards with smooth polished surface. Available with foldable or mounted
-                        stand.</div>
-                    <a href="https://wa.me/919829247707?text=Enquiry%20for%20Carrom%20Board" target="_blank"
-                        class="btn-primary" style="display:inline-flex;">Enquire →</a>
-                </div>
-                <div style="background:var(--charcoal);padding:2.5rem;">
-                    <div style="font-family:'Bebas Neue';font-size:2.5rem;color:var(--gold)">CHESS TABLES</div>
-                    <div
-                        style="font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin:.5rem 0 1.5rem">
-                        Antique Wooden Design</div>
-                    <div
-                        style="font-family:'Cormorant Garamond';font-size:1.05rem;line-height:1.6;color:rgba(245,240,232,.7);margin-bottom:1.5rem;">
-                        Ornate carved wooden chess tables with metal pieces. A centerpiece for any luxury space or club.
+                <div class="foosball-card">
+                    <div class="product-img-container" style="background:#0d1a12; width:100%; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom: 1rem;">
+                        <img src="images/tt/tt_18mm.png" alt="TT 18MM" style="width:100%; height:100%; object-fit:cover;">
                     </div>
-                    <a href="https://wa.me/919829247707?text=Enquiry%20for%20Chess%20Table" target="_blank"
-                        class="btn-primary" style="display:inline-flex;">Enquire →</a>
+                    <div class="foosball-model">TT 18MM Top</div>
+                    <div class="foosball-use">Premium 18mm board thickness for excellent bounce and durability. Ideal for clubs and serious enthusiasts.</div>
+                    <div class="foosball-badge">18MM Top</div>
+                    <a href="https://wa.me/919829247707?text=Enquiry%20for%20TT%20Table%2018MM" target="_blank"
+                        class="product-card-cta" style="margin-top:1rem">Get Quote →</a>
                 </div>
-                <div style="background:var(--charcoal);padding:2.5rem;">
-                    <div style="font-family:'Bebas Neue';font-size:2.5rem;color:var(--gold)">POKER TABLES</div>
-                    <div
-                        style="font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin:.5rem 0 1.5rem">
-                        3 Styles Available</div>
-                    <div
-                        style="font-family:'Cormorant Garamond';font-size:1.05rem;line-height:1.6;color:rgba(245,240,232,.7);margin-bottom:1.5rem;">
-                        Professional poker tables in oval, rectangular and rotating stand styles. Perfect for casinos,
-                        clubs and events.</div>
-                    <a href="https://wa.me/919829247707?text=Enquiry%20for%20Poker%20Table" target="_blank"
-                        class="btn-primary" style="display:inline-flex;">Enquire →</a>
+                <div class="foosball-card">
+                    <div class="product-img-container" style="background:#0d1a12; width:100%; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom: 1rem;">
+                        <img src="images/tt/tt_25mm.png" alt="TT 25MM" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div class="foosball-model">TT 25MM Top</div>
+                    <div class="foosball-use">Professional 25mm thick top providing the highest quality ITTF standard bounce. Built for heavy institutional use.</div>
+                    <div class="foosball-badge">25MM Top</div>
+                    <a href="https://wa.me/919829247707?text=Enquiry%20for%20TT%20Table%2025MM" target="_blank"
+                        class="product-card-cta" style="margin-top:1rem">Get Quote →</a>
+                </div>
+                <div class="foosball-card">
+                    <div class="product-img-container" style="background:#0d1a12; width:100%; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom: 1rem;">
+                        <img src="images/carrom/sb_commercial.png" alt="SB Commercial Carrom Board" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div class="foosball-model">SB Commercial Carrom Board</div>
+                    <div class="foosball-use">Tournament-grade carrom board with smooth polished surface. Ideal for clubs and commercial venues.</div>
+                    <div class="foosball-badge">Commercial Grade</div>
+                    <a href="https://wa.me/919829247707?text=Enquiry%20for%20SB%20Commercial%20Carrom%20Board" target="_blank"
+                        class="product-card-cta" style="margin-top:1rem">Get Quote →</a>
+                </div>
+                <div class="foosball-card">
+                    <div class="product-img-container" style="background:#0d1a12; width:100%; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom: 1rem;">
+                        <img src="images/carrom/sb_pro.png" alt="SB Pro Carrom Board" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div class="foosball-model">SB Pro Carrom Board</div>
+                    <div class="foosball-use">Professional-grade carrom board with ultra-smooth playing surface and premium finish.</div>
+                    <div class="foosball-badge">Professional Grade</div>
+                    <a href="https://wa.me/919829247707?text=Enquiry%20for%20SB%20Pro%20Carrom%20Board" target="_blank"
+                        class="product-card-cta" style="margin-top:1rem">Get Quote →</a>
+                </div>
+                <div class="foosball-card">
+                    <div class="product-img-container" style="background:#0d1a12; width:100%; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom: 1rem;">
+                        <img src="images/chess/sb_grand_1.png" alt="SB Grand Chess Table" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div class="foosball-model">SB Grand Chess Table</div>
+                    <div class="foosball-use">Ornate carved wooden chess tables with metal pieces. A centerpiece for any luxury space or club.</div>
+                    <div class="foosball-badge">Antique Wooden Design</div>
+                    <a href="https://wa.me/919829247707?text=Enquiry%20for%20SB%20Grand%20Chess%20Table" target="_blank"
+                        class="product-card-cta" style="margin-top:1rem">Get Quote →</a>
+                </div>
+                <div class="foosball-card">
+                    <div class="product-img-container" style="background:#0d1a12; width:100%; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom: 1rem;">
+                        <img src="images/chess/sb_grand_2.png" alt="SB Grand Chess Table II" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div class="foosball-model">SB Grand Chess Table II</div>
+                    <div class="foosball-use">Ornate carved wooden chess tables with metal pieces. A centerpiece for any luxury space or club.</div>
+                    <div class="foosball-badge">Antique Wooden Design</div>
+                    <a href="https://wa.me/919829247707?text=Enquiry%20for%20SB%20Grand%20Chess%20Table%20II" target="_blank"
+                        class="product-card-cta" style="margin-top:1rem">Get Quote →</a>
+                </div>
+                <div class="foosball-card">
+                    <div class="product-img-container" style="background:#0d1a12; width:100%; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom: 1rem;">
+                        <img src="images/poker/eleganza.png" alt="Eleganza Poker Table" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div class="foosball-model">Eleganza Poker Table</div>
+                    <div class="foosball-use">Professional poker table with premium finish. Perfect for casinos, clubs and events.</div>
+                    <div class="foosball-badge">Premium Series</div>
+                    <a href="https://wa.me/919829247707?text=Enquiry%20for%20Eleganza%20Poker%20Table" target="_blank"
+                        class="product-card-cta" style="margin-top:1rem">Get Quote →</a>
+                </div>
+                <div class="foosball-card">
+                    <div class="product-img-container" style="background:#0d1a12; width:100%; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom: 1rem;">
+                        <img src="images/poker/poker.png" alt="Poker Table" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div class="foosball-model">Standard Poker Table</div>
+                    <div class="foosball-use">Professional rectangular poker table. Perfect for casinos, clubs and events.</div>
+                    <div class="foosball-badge">Standard</div>
+                    <a href="https://wa.me/919829247707?text=Enquiry%20for%20Standard%20Poker%20Table" target="_blank"
+                        class="product-card-cta" style="margin-top:1rem">Get Quote →</a>
+                </div>
+                <div class="foosball-card">
+                    <div class="product-img-container" style="background:#0d1a12; width:100%; aspect-ratio:4/3; overflow:hidden; display:flex; align-items:center; justify-content:center; margin-bottom: 1rem;">
+                        <img src="images/poker/round.png" alt="Round Poker Table" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div class="foosball-model">Round Poker Table</div>
+                    <div class="foosball-use">Professional round poker table with rotating stand style. Perfect for casinos, clubs and events.</div>
+                    <div class="foosball-badge">Rotating Stand</div>
+                    <a href="https://wa.me/919829247707?text=Enquiry%20for%20Round%20Poker%20Table" target="_blank"
+                        class="product-card-cta" style="margin-top:1rem">Get Quote →</a>
                 </div>
             </div>
         </div>
 
         <!-- ACCESSORIES -->
         <div class="product-panel" id="panel-accessories">
-            <div
-                style="margin-bottom:2rem;font-family:'Cormorant Garamond';font-size:1.2rem;color:rgba(245,240,232,.75);max-width:600px;">
-                Everything you need to play your best game - from championship-grade ball sets to precision cues,
-                elegant cue racks, and fine-tuned accessories.</div>
+            <div style="margin-bottom:2rem;font-family:'Cormorant Garamond';font-size:1.2rem;color:rgba(245,240,232,.75);max-width:600px;">
+                Everything you need to play your best game — from championship-grade ball sets to precision cues, elegant cue stands, and fine-tuned accessories.
+            </div>
             <div class="accessories-grid">
-                <div class="accessory-item"
-                    onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20Billiard%20Balls','_blank')">
-                    <div class="accessory-icon">🎱</div>
-                    <div class="accessory-name">Ball Sets</div>
+
+                <!-- === BALL SETS === -->
+                <div class="accessory-item" onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20Aramith%20American%20Pool%20Ball%20Set','_blank')">
+                    <div class="accessory-img-wrap"><img src="images/accessories/aramith_american_pool_balls.png" alt="Aramith American Pool Ball Set" loading="lazy"></div>
+                    <div class="accessory-name">Aramith American Pool Balls</div>
                 </div>
-                <div class="accessory-item"
-                    onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20Cues','_blank')">
-                    <div class="accessory-icon">🪵</div>
-                    <div class="accessory-name">Billiard Cues</div>
+                <div class="accessory-item" onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20Aramith%20Pool%20Ball%20Set','_blank')">
+                    <div class="accessory-img-wrap"><img src="images/accessories/aramith_pool_balls.png" alt="Aramith Pool Ball Set" loading="lazy"></div>
+                    <div class="accessory-name">Aramith Pool Ball Set</div>
                 </div>
-                <div class="accessory-item"
-                    onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20Cue%20Rack','_blank')">
-                    <div class="accessory-icon">🗂️</div>
-                    <div class="accessory-name">Cue Racks</div>
+                <div class="accessory-item" onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20Pool%20Ball%20Set','_blank')">
+                    <div class="accessory-img-wrap"><img src="images/accessories/pool_ball_set.png" alt="Pool Ball Set" loading="lazy"></div>
+                    <div class="accessory-name">Pool Ball Set</div>
                 </div>
-                <div class="accessory-item"
-                    onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20Snooker%20Triangle','_blank')">
-                    <div class="accessory-icon">🔺</div>
-                    <div class="accessory-name">Triangles</div>
+                <div class="accessory-item" onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20Aramith%201G%20Ball%20Set','_blank')">
+                    <div class="accessory-img-wrap"><img src="images/accessories/aramith_1g_balls.png" alt="Aramith 1G Ball Set" loading="lazy"></div>
+                    <div class="accessory-name">Aramith 1G Ball Set</div>
                 </div>
-                <div class="accessory-item"
-                    onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20Lamp%20Shades','_blank')">
-                    <div class="accessory-icon">💡</div>
-                    <div class="accessory-name">Lamp Shades</div>
+                <div class="accessory-item" onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20Aramith%20Snooker%20Ball%20Set','_blank')">
+                    <div class="accessory-img-wrap"><img src="images/accessories/aramith_snooker_balls.png" alt="Aramith Snooker Ball Set" loading="lazy"></div>
+                    <div class="accessory-name">Aramith Snooker Ball Set</div>
                 </div>
-                <div class="accessory-item"
-                    onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20Scoreboard','_blank')">
-                    <div class="accessory-icon">📋</div>
-                    <div class="accessory-name">Scoreboards</div>
+                <div class="accessory-item" onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20Xinkang%20Snooker%20Ball%20Set','_blank')">
+                    <div class="accessory-img-wrap"><img src="images/accessories/xinkang_snooker_balls.png" alt="Xinkang Snooker Ball Set" loading="lazy"></div>
+                    <div class="accessory-name">Xinkang Snooker Ball Set</div>
                 </div>
-                <div class="accessory-item"
-                    onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20Wave%20Hooks','_blank')">
-                    <div class="accessory-icon">🪝</div>
-                    <div class="accessory-name">Wave Hook Sets</div>
+                <div class="accessory-item" onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20Xinkang%20Billiards%20Ball%20Set','_blank')">
+                    <div class="accessory-img-wrap"><img src="images/accessories/xinkang_billiards_balls.png" alt="Xinkang Billiards Ball Set" loading="lazy"></div>
+                    <div class="accessory-name">Xinkang Billiards Ball Set</div>
                 </div>
-                <div class="accessory-item"
-                    onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20Chalk','_blank')">
-                    <div class="accessory-icon">🟦</div>
-                    <div class="accessory-name">Chalk & Tips</div>
+
+                <!-- === TABLE CLOTHS === -->
+                <div class="accessory-item" onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20Red%20Pool%20Cloth','_blank')">
+                    <div class="accessory-img-wrap"><img src="images/accessories/red_pool_cloth.png" alt="Red Pool Cloth" loading="lazy"></div>
+                    <div class="accessory-name">Red Pool Cloth</div>
                 </div>
-                <div class="accessory-item"
-                    onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20Table%20Cover','_blank')">
-                    <div class="accessory-icon">🛡️</div>
-                    <div class="accessory-name">Table Covers</div>
+                <div class="accessory-item" onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20Blue%20Pool%20Cloth','_blank')">
+                    <div class="accessory-img-wrap"><img src="images/accessories/blue_pool_cloth.png" alt="Blue Pool Cloth" loading="lazy"></div>
+                    <div class="accessory-name">Blue Pool Cloth</div>
                 </div>
-                <div class="accessory-item"
-                    onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20Billiard%20Gloves','_blank')">
-                    <div class="accessory-icon">🧤</div>
-                    <div class="accessory-name">Playing Gloves</div>
+                <div class="accessory-item" onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20Black%20Pool%20Cloth','_blank')">
+                    <div class="accessory-img-wrap"><img src="images/accessories/black_pool_cloth.png" alt="Black Pool Cloth" loading="lazy"></div>
+                    <div class="accessory-name">Black Pool Cloth</div>
                 </div>
-                <div class="accessory-item"
-                    onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20Billiard%20Clothes','_blank')">
-                    <div class="accessory-icon">👕</div>
-                    <div class="accessory-name">Clothes*</div>
+
+                <!-- === EQUIPMENT === -->
+                <div class="accessory-item" onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20Cue%20Stand','_blank')">
+                    <div class="accessory-img-wrap"><img src="images/accessories/cue_stand.png" alt="Cue Stand" loading="lazy"></div>
+                    <div class="accessory-name">Cue Stand</div>
                 </div>
+                <div class="accessory-item" onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20Scoreboard','_blank')">
+                    <div class="accessory-img-wrap"><img src="images/accessories/scoreboard.png" alt="Scoreboard" loading="lazy"></div>
+                    <div class="accessory-name">Scoreboard</div>
+                </div>
+                <div class="accessory-item" onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20Triangle','_blank')">
+                    <div class="accessory-img-wrap"><img src="images/accessories/triangle.png" alt="Triangle" loading="lazy"></div>
+                    <div class="accessory-name">Triangle</div>
+                </div>
+                <div class="accessory-item" onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20Masters%20Chalk%20Box','_blank')">
+                    <div class="accessory-img-wrap"><img src="images/accessories/masters_chalk.png" alt="Masters Chalk Box" loading="lazy"></div>
+                    <div class="accessory-name">Masters Chalk Box</div>
+                </div>
+                <div class="accessory-item" onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20Elk%20Master%20Tips','_blank')">
+                    <div class="accessory-img-wrap"><img src="images/accessories/elk_master_tips.png" alt="Elk Master Tip Box" loading="lazy"></div>
+                    <div class="accessory-name">Elk Master Tips</div>
+                </div>
+                <div class="accessory-item" onclick="window.open('https://wa.me/919829247707?text=Enquiry%20for%20Talisman%20Tips','_blank')">
+                    <div class="accessory-img-wrap"><img src="images/accessories/talisman_tips.png" alt="Talisman Tips" loading="lazy"></div>
+                    <div class="accessory-name">Talisman Tips</div>
+                </div>
+
             </div>
             <div style="margin-top:2.5rem;text-align:center;">
                 <a href="https://wa.me/919829247707?text=Please%20send%20me%20the%20complete%20accessories%20catalog"
@@ -2525,126 +2812,66 @@
         <div class="section-label reveal">Trusted By</div>
         <h2 class="section-title reveal">Our <em>Esteemed</em><br>Clients</h2>
         <div class="clients-marquee">
-            <!-- Top Track (Moves Left) -->
-            <div class="clients-track-left">
+            <div class="clients-track">
                 <!-- Set 1 -->
-                <div class="client-logo" title="Raffles Jaipur">
-                    <img src="https://logo.clearbit.com/raffles.com" alt="Raffles Jaipur Logo" onerror="this.src='https://ui-avatars.com/api/?name=Raffles+Jaipur&background=random&color=fff&size=128'">
-                </div>
-                <div class="client-sep">◆</div>
-                <div class="client-logo" title="Virasat">
-                    <img src="https://logo.clearbit.com/virasatrestaurant.com" alt="Virasat Logo" onerror="this.src='https://ui-avatars.com/api/?name=Virasat&background=random&color=fff&size=128'">
-                </div>
-                <div class="client-sep">◆</div>
-                <div class="client-logo" title="Manipal University Jaipur">
-                    <img src="https://logo.clearbit.com/manipal.edu" alt="Manipal University Jaipur Logo" onerror="this.src='https://ui-avatars.com/api/?name=Manipal+University&background=random&color=fff&size=128'">
-                </div>
-                <div class="client-sep">◆</div>
-                <div class="client-logo" title="Ananta Hotels & Resorts">
-                    <img src="https://logo.clearbit.com/anantahotels.com" alt="Ananta Hotels & Resorts Logo" onerror="this.src='https://ui-avatars.com/api/?name=Ananta+Hotels&background=random&color=fff&size=128'">
-                </div>
-                <div class="client-sep">◆</div>
-                <div class="client-logo" title="Umed Club">
-                    <img src="https://logo.clearbit.com/umedclub.com" alt="Umed Club Logo" onerror="this.src='https://ui-avatars.com/api/?name=Umed+Club&background=random&color=fff&size=128'">
-                </div>
-                <div class="client-sep">◆</div>
-                <!-- Duplicate Set 1 -->
-                <div class="client-logo" title="Raffles Jaipur">
-                    <img src="https://logo.clearbit.com/raffles.com" alt="Raffles Jaipur Logo" onerror="this.src='https://ui-avatars.com/api/?name=Raffles+Jaipur&background=random&color=fff&size=128'">
-                </div>
-                <div class="client-sep">◆</div>
-                <div class="client-logo" title="Virasat">
-                    <img src="https://logo.clearbit.com/virasatrestaurant.com" alt="Virasat Logo" onerror="this.src='https://ui-avatars.com/api/?name=Virasat&background=random&color=fff&size=128'">
-                </div>
-                <div class="client-sep">◆</div>
-                <div class="client-logo" title="Manipal University Jaipur">
-                    <img src="https://logo.clearbit.com/manipal.edu" alt="Manipal University Jaipur Logo" onerror="this.src='https://ui-avatars.com/api/?name=Manipal+University&background=random&color=fff&size=128'">
-                </div>
-                <div class="client-sep">◆</div>
-                <div class="client-logo" title="Ananta Hotels & Resorts">
-                    <img src="https://logo.clearbit.com/anantahotels.com" alt="Ananta Hotels & Resorts Logo" onerror="this.src='https://ui-avatars.com/api/?name=Ananta+Hotels&background=random&color=fff&size=128'">
-                </div>
-                <div class="client-sep">◆</div>
-                <div class="client-logo" title="Umed Club">
-                    <img src="https://logo.clearbit.com/umedclub.com" alt="Umed Club Logo" onerror="this.src='https://ui-avatars.com/api/?name=Umed+Club&background=random&color=fff&size=128'">
-                </div>
-                <div class="client-sep">◆</div>
-                <!-- Duplicate Set 1 again for smoother scroll -->
-                <div class="client-logo" title="Raffles Jaipur">
-                    <img src="https://logo.clearbit.com/raffles.com" alt="Raffles Jaipur Logo" onerror="this.src='https://ui-avatars.com/api/?name=Raffles+Jaipur&background=random&color=fff&size=128'">
-                </div>
-                <div class="client-sep">◆</div>
-                <div class="client-logo" title="Virasat">
-                    <img src="https://logo.clearbit.com/virasatrestaurant.com" alt="Virasat Logo" onerror="this.src='https://ui-avatars.com/api/?name=Virasat&background=random&color=fff&size=128'">
-                </div>
-                <div class="client-sep">◆</div>
-                <div class="client-logo" title="Manipal University Jaipur">
-                    <img src="https://logo.clearbit.com/manipal.edu" alt="Manipal University Jaipur Logo" onerror="this.src='https://ui-avatars.com/api/?name=Manipal+University&background=random&color=fff&size=128'">
-                </div>
-                <div class="client-sep">◆</div>
-                <div class="client-logo" title="Ananta Hotels & Resorts">
-                    <img src="https://logo.clearbit.com/anantahotels.com" alt="Ananta Hotels & Resorts Logo" onerror="this.src='https://ui-avatars.com/api/?name=Ananta+Hotels&background=random&color=fff&size=128'">
-                </div>
-                <div class="client-sep">◆</div>
-                <div class="client-logo" title="Umed Club">
-                    <img src="https://logo.clearbit.com/umedclub.com" alt="Umed Club Logo" onerror="this.src='https://ui-avatars.com/api/?name=Umed+Club&background=random&color=fff&size=128'">
-                </div>
-                <div class="client-sep">◆</div>
-            </div>
-
-            <!-- Bottom Track (Moves Right) -->
-            <div class="clients-track-right">
-                <!-- Set 2 -->
-                <div class="client-logo" title="Kedia Builders & Colonizers">
-                    <img src="https://logo.clearbit.com/kediabuilders.com" alt="Kedia Builders Logo" onerror="this.src='https://ui-avatars.com/api/?name=Kedia+Builders&background=random&color=fff&size=128'">
-                </div>
-                <div class="client-sep">◆</div>
-                <div class="client-logo" title="Shubhashish Homes">
-                    <img src="https://logo.clearbit.com/shubhashishhomes.com" alt="Shubhashish Homes Logo" onerror="this.src='https://ui-avatars.com/api/?name=Shubhashish+Homes&background=random&color=fff&size=128'">
-                </div>
-                <div class="client-sep">◆</div>
-                <div class="client-logo" title="Manglam BDL">
-                    <img src="https://logo.clearbit.com/manglamgroup.com" alt="Manglam BDL Logo" onerror="this.src='https://ui-avatars.com/api/?name=Manglam+BDL&background=random&color=fff&size=128'">
-                </div>
-                <div class="client-sep">◆</div>
-                <div class="client-logo" title="Akshat - A Way of Life">
-                    <img src="https://logo.clearbit.com/akshatapartments.com" alt="Akshat Logo" onerror="this.src='https://ui-avatars.com/api/?name=Akshat&background=random&color=fff&size=128'">
-                </div>
-                <div class="client-sep">◆</div>
-                <!-- Duplicate Set 2 -->
-                <div class="client-logo" title="Kedia Builders & Colonizers">
-                    <img src="https://logo.clearbit.com/kediabuilders.com" alt="Kedia Builders Logo" onerror="this.src='https://ui-avatars.com/api/?name=Kedia+Builders&background=random&color=fff&size=128'">
-                </div>
-                <div class="client-sep">◆</div>
-                <div class="client-logo" title="Shubhashish Homes">
-                    <img src="https://logo.clearbit.com/shubhashishhomes.com" alt="Shubhashish Homes Logo" onerror="this.src='https://ui-avatars.com/api/?name=Shubhashish+Homes&background=random&color=fff&size=128'">
-                </div>
-                <div class="client-sep">◆</div>
-                <div class="client-logo" title="Manglam BDL">
-                    <img src="https://logo.clearbit.com/manglamgroup.com" alt="Manglam BDL Logo" onerror="this.src='https://ui-avatars.com/api/?name=Manglam+BDL&background=random&color=fff&size=128'">
-                </div>
-                <div class="client-sep">◆</div>
-                <div class="client-logo" title="Akshat - A Way of Life">
-                    <img src="https://logo.clearbit.com/akshatapartments.com" alt="Akshat Logo" onerror="this.src='https://ui-avatars.com/api/?name=Akshat&background=random&color=fff&size=128'">
-                </div>
-                <div class="client-sep">◆</div>
-                <!-- Duplicate Set 2 again for smoother scroll -->
-                <div class="client-logo" title="Kedia Builders & Colonizers">
-                    <img src="https://logo.clearbit.com/kediabuilders.com" alt="Kedia Builders Logo" onerror="this.src='https://ui-avatars.com/api/?name=Kedia+Builders&background=random&color=fff&size=128'">
-                </div>
-                <div class="client-sep">◆</div>
-                <div class="client-logo" title="Shubhashish Homes">
-                    <img src="https://logo.clearbit.com/shubhashishhomes.com" alt="Shubhashish Homes Logo" onerror="this.src='https://ui-avatars.com/api/?name=Shubhashish+Homes&background=random&color=fff&size=128'">
-                </div>
-                <div class="client-sep">◆</div>
-                <div class="client-logo" title="Manglam BDL">
-                    <img src="https://logo.clearbit.com/manglamgroup.com" alt="Manglam BDL Logo" onerror="this.src='https://ui-avatars.com/api/?name=Manglam+BDL&background=random&color=fff&size=128'">
-                </div>
-                <div class="client-sep">◆</div>
-                <div class="client-logo" title="Akshat - A Way of Life">
-                    <img src="https://logo.clearbit.com/akshatapartments.com" alt="Akshat Logo" onerror="this.src='https://ui-avatars.com/api/?name=Akshat&background=random&color=fff&size=128'">
-                </div>
-                <div class="client-sep">◆</div>
+                <div class="client-logo"><img src="images/clients/client_64.png" alt="Client Logo"></div>
+                <div class="client-sep">•</div>
+                <div class="client-logo"><img src="images/clients/client_65.png" alt="Client Logo"></div>
+                <div class="client-sep">•</div>
+                <div class="client-logo"><img src="images/clients/client_66.png" alt="Client Logo"></div>
+                <div class="client-sep">•</div>
+                <div class="client-logo"><img src="images/clients/client_67.png" alt="Client Logo"></div>
+                <div class="client-sep">•</div>
+                <div class="client-logo"><img src="images/clients/client_68.png" alt="Client Logo"></div>
+                <div class="client-sep">•</div>
+                <div class="client-logo"><img src="images/clients/client_69.png" alt="Client Logo"></div>
+                <div class="client-sep">•</div>
+                <div class="client-logo"><img src="images/clients/client_70.png" alt="Client Logo"></div>
+                <div class="client-sep">•</div>
+                <div class="client-logo"><img src="images/clients/client_71.png" alt="Client Logo"></div>
+                <div class="client-sep">•</div>
+                <div class="client-logo"><img src="images/clients/client_72.png" alt="Client Logo"></div>
+                <div class="client-sep">•</div>
+                <div class="client-logo"><img src="images/clients/rajasthan_royals.png" alt="Client Logo"></div>
+                <div class="client-sep">•</div>
+                <div class="client-logo"><img src="images/clients/shree_shyam.png" alt="Client Logo"></div>
+                <div class="client-sep">•</div>
+                <div class="client-logo"><img src="images/clients/indian_air_force.svg" alt="Client Logo"></div>
+                <div class="client-sep">•</div>
+                <div class="client-logo"><img src="images/clients/ramada.png" alt="Client Logo"></div>
+                <div class="client-sep">•</div>
+                <div class="client-logo"><img src="images/clients/ras_club.png" alt="Client Logo"></div>
+                <div class="client-sep">•</div>
+                
+                <!-- Duplicate Set 1 for Looping -->
+                <div class="client-logo"><img src="images/clients/client_64.png" alt="Client Logo"></div>
+                <div class="client-sep">•</div>
+                <div class="client-logo"><img src="images/clients/client_65.png" alt="Client Logo"></div>
+                <div class="client-sep">•</div>
+                <div class="client-logo"><img src="images/clients/client_66.png" alt="Client Logo"></div>
+                <div class="client-sep">•</div>
+                <div class="client-logo"><img src="images/clients/client_67.png" alt="Client Logo"></div>
+                <div class="client-sep">•</div>
+                <div class="client-logo"><img src="images/clients/client_68.png" alt="Client Logo"></div>
+                <div class="client-sep">•</div>
+                <div class="client-logo"><img src="images/clients/client_69.png" alt="Client Logo"></div>
+                <div class="client-sep">•</div>
+                <div class="client-logo"><img src="images/clients/client_70.png" alt="Client Logo"></div>
+                <div class="client-sep">•</div>
+                <div class="client-logo"><img src="images/clients/client_71.png" alt="Client Logo"></div>
+                <div class="client-sep">•</div>
+                <div class="client-logo"><img src="images/clients/client_72.png" alt="Client Logo"></div>
+                <div class="client-sep">•</div>
+                <div class="client-logo"><img src="images/clients/rajasthan_royals.png" alt="Client Logo"></div>
+                <div class="client-sep">•</div>
+                <div class="client-logo"><img src="images/clients/shree_shyam.png" alt="Client Logo"></div>
+                <div class="client-sep">•</div>
+                <div class="client-logo"><img src="images/clients/indian_air_force.svg" alt="Client Logo"></div>
+                <div class="client-sep">•</div>
+                <div class="client-logo"><img src="images/clients/ramada.png" alt="Client Logo"></div>
+                <div class="client-sep">•</div>
+                <div class="client-logo"><img src="images/clients/ras_club.png" alt="Client Logo"></div>
+                <div class="client-sep">•</div>
             </div>
         </div>
     </section>
@@ -2657,8 +2884,8 @@
                 customisation options inside.</p>
         </div>
         <div class="catalog-actions reveal-right">
-            <a href="#" class="btn-download" id="catalogDownloadBtn" download>
-                ⬇ Download Catalog PDF
+            <a href="assets/Singh_Billiards_Catalog.pdf" class="btn-download" id="catalogDownloadBtn" download="Singh_Billiards_Catalog.pdf" target="_blank">
+                Download Catalog PDF
             </a>
             <a href="https://wa.me/919829247707?text=Please%20send%20me%20the%20latest%20Singh%20Billiards%20Product%20Catalog"
                 target="_blank" class="btn-wa">
@@ -2681,14 +2908,14 @@
             <div class="reveal-left">
                 <div class="contact-info">
                     <div class="contact-item">
-                        <div class="contact-icon">📍</div>
+                        <div class="contact-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></div>
                         <div class="contact-detail">
                             <strong>Visit Our Display Room</strong>
                             3/341, LBS College Marg, Raja Park,<br>Jaipur, Rajasthan – 302004
                         </div>
                     </div>
                     <div class="contact-item">
-                        <div class="contact-icon">📞</div>
+                        <div class="contact-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg></div>
                         <div class="contact-detail">
                             <strong>Call / WhatsApp</strong>
                             <a href="tel:+919829247707"
@@ -2697,7 +2924,7 @@
                         </div>
                     </div>
                     <div class="contact-item">
-                        <div class="contact-icon">🔧</div>
+                        <div class="contact-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg></div>
                         <div class="contact-detail">
                             <strong>Service & Repairs</strong>
                             We also service and repair existing billiard and snooker tables. Contact us for a service
@@ -2705,7 +2932,7 @@
                         </div>
                     </div>
                     <div class="contact-item" style="padding-bottom:0;margin-bottom:0;border-bottom:none">
-                        <div class="contact-icon">🕐</div>
+                        <div class="contact-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
                         <div class="contact-detail">
                             <strong>Display Room Hours</strong>
                             Monday–Saturday: 10am – 7pm<br>Sunday: By Appointment
@@ -2732,11 +2959,11 @@
                 </div>
                 <a href="https://wa.me/919829247707?text=I'd%20like%20to%20request%20a%20product%20quote"
                     target="_blank" class="wa-btn-big" style="background:#1a4a2e;margin-top:.5rem;">
-                    📋 Request a Custom Quote
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg> Request a Custom Quote
                 </a>
                 <a href="https://wa.me/919829247707?text=I'd%20like%20to%20schedule%20a%20visit%20to%20your%20display%20room"
                     target="_blank" class="wa-btn-big" style="background:#2d6b45;margin-top:.5rem;">
-                    🏪 Book a Display Room Visit
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> Book a Display Room Visit
                 </a>
                 <div class="wa-note">We typically respond within minutes.</div>
             </div>

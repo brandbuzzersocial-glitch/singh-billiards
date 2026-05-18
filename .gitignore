@@ -1,0 +1,11 @@
+node_modules/
+tmp/
+*.bak
+test_write.txt
+tmp_index.txt
+tmp_index_utf8.html
+restored_index.html
+images/clients_raw/
+images/clients_grid.png
+images/clients_master.png
+server.js
