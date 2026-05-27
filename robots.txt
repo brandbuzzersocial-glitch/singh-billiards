@@ -1,0 +1,14 @@
+# Robots.txt for Singh Billiards & Sports
+# Accessible at https://singhbilliards.com/robots.txt
+
+User-agent: *
+Allow: /
+Allow: /index.html
+Allow: /assets/
+Allow: /images/
+Disallow: /tmp/
+Disallow: /node_modules/
+Disallow: /*.bak$
+
+# Declares the XML sitemap location to automate indexing
+Sitemap: https://singhbilliards.com/sitemap.xml
