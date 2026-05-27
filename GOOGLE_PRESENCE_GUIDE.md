@@ -63,7 +63,7 @@ Because Singh Billiards has a physical display room in Raja Park, Jaipur, local 
 3. Ensure the address and details match your website exactly:
    * **Name:** `Singh Billiards & Sports`
    * **Address:** `3/341, LBS College Marg, Raja Park, Jaipur, Rajasthan – 302004`
-   * **Phone:** `+91 98292 47707`
+   * **Phone:** `+91 82099 80262`
    * **Website URL:** `https://singhbilliards.com/` (Make sure this matches your final domain).
    * **Primary Category:** `Sporting Goods Store` or `Billiards Supply Store`.
 4. **Opening Hours:** Monday to Saturday (10:00 AM – 7:00 PM), Sunday (By Appointment).
