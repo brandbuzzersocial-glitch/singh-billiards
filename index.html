@@ -1822,9 +1822,19 @@
             transform: none;
         }
 
-        /* RESPONSIVE */
-        @media(max-width:900px) {
+        /* RESPONSIVE & MOBILE OPTIMIZATIONS */
+        @media (max-width: 1024px), (hover: none) {
+            /* Disable custom cursor on touch devices to prevent laggy visual bugs */
+            .cursor,
+            .cursor-ring {
+                display: none !important;
+            }
+            body {
+                cursor: auto !important;
+            }
+        }
 
+        @media(max-width:900px) {
             #about,
             .contact-grid,
             .gym-inner,
@@ -1879,6 +1889,22 @@
         }
 
         @media(max-width:768px) {
+            /* Hero section mobile adjustments to prevent overflow/overlap */
+            #hero {
+                min-height: 600px;
+                height: auto;
+                padding-top: 120px;
+                padding-bottom: 80px;
+            }
+
+            .hero-since {
+                display: none !important;
+            }
+
+            .hero-scroll {
+                display: none !important;
+            }
+
             .spec-row {
                 flex-direction: column;
                 align-items: flex-start;
@@ -1945,7 +1971,41 @@
 
         @media(max-width:600px) {
             section {
-                padding: 4rem 5%;
+                padding: 4.5rem 6%;
+            }
+
+            /* Sub-tabs scrollable instead of overlapping/wrapping awkwardly */
+            .sub-tabs {
+                width: 100%;
+                overflow-x: auto;
+                justify-content: flex-start;
+                white-space: nowrap;
+                border-radius: 12px;
+                padding: 0.5rem 0.8rem;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .sub-tab-btn {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.8rem;
+                flex-shrink: 0;
+            }
+
+            /* Main tabs scrollable horizontally on mobile */
+            .product-tabs {
+                width: 100%;
+                overflow-x: auto;
+                flex-wrap: nowrap !important;
+                white-space: nowrap;
+                padding-bottom: 0.6rem;
+                -webkit-overflow-scrolling: touch;
+                gap: 0.4rem;
+            }
+
+            .tab-btn {
+                flex-shrink: 0;
+                padding: 0.5rem 1rem;
+                font-size: 0.75rem;
             }
 
             .why-grid,
@@ -1957,8 +2017,30 @@
                 grid-template-columns: repeat(2, 1fr);
             }
 
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
+            }
+
+            /* Centered catalog block on mobile */
             #catalog {
                 flex-direction: column;
+                text-align: center;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .catalog-text p {
+                margin: 0.5rem auto 1.5rem;
+            }
+
+            .catalog-actions {
+                justify-content: center;
+                width: 100%;
+            }
+
+            .btn-download, .btn-wa {
+                width: 100%;
+                justify-content: center;
             }
 
             .hero-actions {
@@ -1969,6 +2051,63 @@
             .btn-secondary {
                 text-align: center;
                 justify-content: center;
+            }
+
+            /* Pool Full Range button reset to avoid margin overflow */
+            #panel-pool > div:last-child {
+                flex-direction: column !important;
+                align-items: center !important;
+                text-align: center !important;
+                gap: 1.2rem !important;
+            }
+            #panel-pool > div:last-child a.btn-secondary {
+                margin-left: 0 !important;
+                width: 100% !important;
+                justify-content: center !important;
+            }
+
+            /* Prevent layout squeezing in contact form details */
+            .contact-info {
+                padding: 1.8rem 1.5rem !important;
+            }
+
+            /* Responsive stack for specifications table */
+            .table-specs table, 
+            .table-specs tbody, 
+            .table-specs tr, 
+            .table-specs td {
+                display: block;
+                width: 100%;
+            }
+
+            .table-specs tr {
+                padding: 0.8rem 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            }
+
+            .table-specs td {
+                padding: 0.2rem 0;
+                border-bottom: none;
+            }
+
+            /* Clean footer centering */
+            footer {
+                flex-direction: column;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .footer-links {
+                justify-content: center;
+                gap: 1.5rem;
+            }
+        }
+
+        @media(max-width:480px) {
+            /* Show logos in a neat 2-column grid instead of a single long list */
+            .clients-static-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
             }
         }
 
@@ -1983,7 +2122,9 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 2.5rem;
+            gap: 2.2rem;
+            padding: 4rem 2rem;
+            overflow-y: auto;
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
@@ -1998,7 +2139,7 @@
 
         .mobile-nav a {
             font-family: 'Playfair Display', serif;
-            font-size: 2rem;
+            font-size: 1.8rem;
             color: var(--cream);
             text-decoration: none;
             transition: color .2s;
@@ -2017,6 +2158,15 @@
             font-size: 2rem;
             color: var(--cream);
             cursor: pointer;
+        }
+
+        @media(max-height: 600px) {
+            .mobile-nav {
+                gap: 1.2rem;
+            }
+            .mobile-nav a {
+                font-size: 1.3rem;
+            }
         }
     </style>
 </head>
